@@ -1,0 +1,199 @@
+<!-- <aside class="right-side">
+
+<section class="content-header">
+        <h1>Image</h1>
+        
+    </section> -->
+<!--   
+    <section class="content">
+      <table>
+      <tr>
+        <td>
+        <div>Select an image file: <input type="file" id="fileInput" /></div>
+        <div class="cropArea">
+          <ui-cropper class="setSize" image="myImage" area-type="rectangle" result-image="myCroppedImage" result-image-size="'max'">
+            
+          </ui-cropper>
+        </div>
+      </td>
+      <td>
+        <div class="setResize">Cropped Image:</div>
+        <div><img ng-src="{{myCroppedImage}}" /></div>
+      </td>
+      </tr>
+      
+</table>
+ </section> -->
+<!-- </aside>
+ -->
+<!-- <style>
+.cropArea {
+  background: #E4E4E4;
+  overflow: hidden;
+  width:500px;
+  height:350px;
+}
+canvas{
+  margin-top: 0px !important;
+  margin-left:0px !important;
+}
+.setResize{
+  width:100px !important;
+  height:100px !important;
+}
+
+</style> -->
+
+
+<!-- <table>
+<tr>
+  <td>
+    <div>Select an image file: <input type="file" id="fileInput" /></div>
+    <button ng-click="callTestFuntion()">Render</button>
+    <button ng-click="rotate(false)">Rotate Left</button>
+    <button ng-click="rotate(true)">Rotate Right</button>
+    <span ng-show="isRotating">Rotating...</span>
+    <div class="cropArea">
+      <img-crop image="myImage" area-type="{{shape}}" result-image="myCroppedImage" ></img-crop>
+    </div>
+  </td>
+  <td>
+    <div>Cropped Image:</div>
+    <div><img ng-src="{{myCroppedImage}}" /></div>
+  </td>
+  </tr>
+  <tr>
+    <button ng-click="square()">Square</button>
+    <button ng-click="circle()">Circle</button>
+  </tr>
+</table>
+
+<style>
+.cropArea {
+  background: #E4E4E4;
+  overflow: hidden;
+  width:500px;
+  height:350px;
+}
+</style> -->
+
+
+
+<!-- <table>
+<tr>
+  <td>
+    <div>Cropped Image:</div>
+    <div><img ng-src="{{myCroppedImage}}" /></div>
+  </td>
+  <td>
+    <div class="cropArea"><div>Select an image file: <input type="file" id="fileInput" /></div>    
+    <ui-cropper image="myImage" area-type="{{imgShape}}" chargement="'Loading'" result-image="myCroppedImage" canvas-scalemode="true"></ui-cropper>
+    </div>
+  </td>
+  </tr>
+  <tr>
+    <button ng-click="setShape('square')">Square</button>
+    <button ng-click="setShape('circle')">Circle</button>
+    <button ng-click="setShape('rectangle')">Rectangle</button>
+    <button ng-click="rotate(false)">Rotate Left</button>
+    <button ng-click="rotate(true)">Rotate Right</button>
+    <span ng-show="isRotating">Rotating...</span>
+  </tr>
+</table> -->
+<!-- 
+<table>
+  <td>
+    <input type="text" data-ng-model="cropper.cropWidth">
+    <input type="text" data-ng-model="cropper.cropHeight">
+    <input type="text" data-ng-model="cropper.cropTop">
+    <input type="text" data-ng-model="cropper.cropLeft">
+    <br>
+    <input type="text" data-ng-model="cropper.cropImageWidth">
+    <input type="text" data-ng-model="cropper.cropImageHeight">
+    <input type="text" data-ng-model="cropper.cropImageTop">
+    <input type="text" data-ng-model="cropper.cropImageLeft">
+
+    <div>Select an image file: <input type="file" id="fileInput" /></div>
+    <div class="cropArea">
+      <ui-cropper image="myImage" area-type="rectangle" area-init-size="{ w:cropper.cropWidth,h:cropper.cropHeight}" cropject="cropper" result-image="myCroppedImage"></ui-cropper>
+   
+    </div>{{cropper}}
+  </td>
+  <td>
+    <div>Cropped Image:</div>
+    <div><img ng-src="{{myCroppedImage}}" /></div>
+  </td>
+  <button ng-click="submit(myCroppedImage,cropper)">Submit</button>
+</table> -->
+
+
+
+
+<!-- 
+<table>
+   <td>
+    <div>Select an image file: <input type="file" id="fileInput" /></div>
+    <div class="cropArea">
+      <ui-cropper image="myImage" area-type="{{imgShape}}" result-image="myCroppedImage" canvas-scalemode="true"></ui-cropper>
+    </div>
+  </td>
+  <td>
+    <div>Cropped Image:</div>
+    <div><img ng-src="{{myCroppedImage}}" /></div>
+  </td>
+  <button ng-click="submit(myCroppedImage)">Submit</button>
+
+    <button ng-click="setShape('square')">Square</button>
+    <button ng-click="setShape('circle')">Circle</button>
+    <button ng-click="setShape('rectangle')">Rectangle</button>
+    <button ng-click="rotate(false)">Rotate Left</button>
+    <button ng-click="rotate(true)">Rotate Right</button>
+    <span ng-show="isRotating">Rotating...</span>
+</table> -->
+<!-- <style>
+.cropArea {
+  background: #E4E4E4;
+  overflow: hidden;
+  width:500px;
+  height:350px;
+}
+canvas{
+  margin-top: 0px !important;
+  margin-left:0px !important;
+}
+.setResize{
+  width:100px !important;
+  height:100px !important;
+}
+
+</style> -->
+
+
+<label class="img-upload-label">
+    Upload Image88:
+    <input type="file" class="js-fileinput img-upload" accept="image/jpeg,image/png,image/gif">
+</label>
+<button class="js-export img-export">Export</button>
+<canvas class="js-editorcanvas"></canvas>
+<canvas class="js-previewcanvas"></canvas>
+
+<style type="text/css">
+  html,
+input {
+    box-sizing: border-box;
+    font-family: Helvetica, sans-serif;
+}
+
+* {
+    box-sizing: inherit;
+}
+
+.hidden {
+    display: none;
+}
+
+.img-export {
+    display: block;
+}
+
+</style>

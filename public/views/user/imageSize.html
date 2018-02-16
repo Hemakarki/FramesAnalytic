@@ -1,0 +1,103 @@
+<!--free shipping-->
+<section class="free_shipping">
+   FREE SHIPPING AUSTRALIA-WIDE
+</section>
+<!--free shipping-->
+
+
+<!--image_uploading_steps-->
+<div class="image_uploading_steps">
+   <ul>
+      <li style="cursor: pointer;" ui-sref = "user.framesType">
+         <span class="cirle"></span>
+         <span class="text">1 Image</span>
+      </li>
+      <li ng-if="frameArtType=='digital'" style="cursor: pointer;" ui-sref = "user.editImage({'myParam':{'artType':'Digital'}})">
+         <span class="cirle"></span>
+         <span class="text">2 Review</span>
+      </li>
+       <li ng-if="frameArtType=='insta'" style="cursor: pointer;" ui-sref = "user.instagramPhoto">
+         <span class="cirle"></span>
+         <span class="text">2 Review</span>
+      </li>
+       <li ng-if="frameArtType=='artWork'" style="cursor: pointer;" ui-sref="user.artWork({'myParam':{'artType': artType}})">
+         <span class="cirle"></span>
+         <span class="text">2 Review</span>
+      </li>
+      <li style="cursor: pointer;" class="active" ui-sref = "user.imageSize">
+         <span class="cirle"></span>
+         <span class="text">3 Size</span>
+      </li>
+      <li>
+         <span class="cirle"></span>
+         <span class="text">4 Frame</span>
+      </li>
+      <li>
+         <span class="cirle"></span>
+         <span class="text">5 Finalise</span>
+      </li>
+   </ul>
+</div>
+<!--image_uploading_steps-->
+
+
+
+<!--product section-->
+<section class="faq_section start_framing_section framing_steps">
+ <div class="container" ng-init = "getImageSize()">
+  <div class="row">
+     <div class="col-md-3 steps_info">
+        <div class="title">Select your image size.</div>
+        <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat</p>
+          <div class="frame_filter">
+            <div class="select-style" ng-if="artWork==false" class="col-md-2">
+              <select ng-options="size as (size.width | number : 0) + 'cm x ' + (size.height | number : 0) + 'cm' for size in artSizes" ng-model="art.artSize" ng-change = "sizeCalculate(art.artSize)">
+              </select>
+            </div>
+          </div>
+
+          <div ng-if="artWork==true">
+          <label>Height</label>
+          <div class="select-style" ng-if="artWork==true">
+            <select ng-model="art.height"  ng-options="val.value as val.value + ' cm' for val in heightValues"  ng-change="sizeChange(art.height)"> 
+            
+            </select>
+          </div>
+          </div>
+
+
+          <div ng-if="artWork==true">
+          <label>Width</label>
+           <div class="select-style" ng-if="artWork==true">
+             <select ng-model="art.width" ng-options="val.value as val.value  + ' cm' for val in widthValues"  ng-change="sizeChange(art.width)"></select>
+           </div>
+           </div>
+
+
+           <div class="specification">
+              <ul>
+                 <li>
+                    <label ng-model = "art.artSizeType.frameSize">{{art.artSizeType.frameSize}}</label>
+                    <span ng-model = "art.artSizeType.frameCost">${{art.artSizeType.frameCost}}</span>
+                 </li>
+              </ul>
+           </div>
+
+   <!--      </div> -->
+     </div>
+     <div class="col-md-3 col-md-offset-1 steps_operation">
+         <div class="imagecol" style="text-align: center;">
+           <img src="{{image}}" alt="image"/>
+         </div>
+         <a href="javascript:void(0)" class="red_button button continue" ng-click = "saveInfo(art)">Continue</a>
+
+     </div>
+  </div>
+ </div>
+</section>
+<!--product section-->
+
+
+<div class="loading_div" ng-show='obj.loading'>
+  <center><img class="loading_img" src="./../images/Eclipse.gif"></center>
+</div>

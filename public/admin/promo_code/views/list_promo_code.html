@@ -1,0 +1,78 @@
+<aside class="right-side" ng-init="getPromoList()">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1>
+         Promo Code
+        </h1>
+    </section>
+    <!-- Main content -->
+    <section class="content">
+        <div class="row">
+            <div class="col-xs-12">
+                    <div class="box">
+                        <div class="box-body table-responsive">
+                            <div class="clearfix" style="padding-bottom:15px;">
+                                <div class="box-body table-responsive">
+                                    <div class="clearfix">
+                                        <div class="clearfix"></div>
+                                        <form name="searchForm" novalidate ng-submit="">
+                                            <div class="input-group">
+                                            <input type="text" class="form-control" placeholder="Search term" name="searchTerm" ng-model="searchPage" required />
+                                                <span class="input-group-btn">
+                                        <button class="btn btn-default" type="submit" ng-click="getPromoList(searchPage)">
+                                          <span class="glyphicon glyphicon-search"></span>
+                                        </button>
+                                                </span>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <form role="form">
+                                        <div>
+                                            <table id="example1" class="table table-bordered table-striped" ng-table="tableParams">
+                                                <colgroup>
+                                                    <col width="5%" />
+                                                    <col width="15%" />
+                                                    <col width="60%" />
+                                                    <col width="20%" />
+                                                </colgroup>
+                                                <tr ng-repeat="promo in $data" ng-if="data.length!=0">
+                                                    <td data-title="'S.No'">{{skipNo + $index + 1}}</td>
+                                                    <td class="col-sm-2" data-title="'Promo Code'"  filter="{title:'text'}" align="left" sortable="'promoCode'">{{promo.promoCode}}</td>
+                                                    <td class="col-sm-4" data-title="'Description'">{{promo.description}}</td>
+                                                    <td class="col-sm-6" data-title="'Action'">
+                                                        <button class="fa fa-pencil" aria-hidden="true" ui-sref="admin.edit_promo({'id':promo._id})"></button>
+                                                        <button class="fa fa-trash" aria-hidden="true" ng-click="deletePromoCode(promo)"></button>
+                                                    </td>
+
+                                                </tr>
+
+                                                <tr ng-show="!$data.length">
+                                                  <td class="text-center" colspan="11">
+                                                  <div class="alert alert-danger">
+                                                      No Promo Code Available
+                                                  </div>
+                                                  </td>
+                                                </tr>
+
+                                            </table>
+                                        </div>
+                                        </form>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+                    </div>
+                    </div>
+
+    </section>
+
+
+
+    <!-- /.content -->
+</aside>
+
+<div class="loading_div" ng-show='obj.loading'>
+  <center><img class="loading_img" src="./../images/Eclipse.gif"></center>
+</div>

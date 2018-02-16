@@ -1,0 +1,189 @@
+<!--free shipping-->
+<section class="free_shipping">
+   FREE SHIPPING AUSTRALIA-WIDE
+</section>
+<!--free shipping-->
+
+<!--image_uploading_steps-->
+<div class="image_uploading_steps">
+   <ul>
+      <li style="cursor: pointer;" ui-sref = "user.framesType">
+         <span class="cirle" ui-sref = "user.framesType" ></span>
+         <span class="text" >1 Image</span>
+      </li>
+      <li ng-if="frameType=='digital'" style="cursor: pointer;"  ui-sref = "user.editImage({'myParam':{'artType':'Digital'}})">
+         <span class="cirle"></span>
+         <span class="text">2 Review </span>
+      </li>
+        <li ng-if="frameType=='insta'" style="cursor: pointer;" ui-sref = "user.instagramPhoto">
+         <span class="cirle"></span>
+         <span class="text">2 Review </span>
+      </li>
+         <li ng-if="frameType=='artWork'" style="cursor: pointer;" ui-sref = "user.artWork">
+         <span class="cirle"></span>
+         <span class="text">2 Review </span>
+      </li>
+      <li style="cursor: pointer;" ui-sref = "user.imageSize({'imageType':frameType})">
+         <span class="cirle"></span>
+         <span class="text">3 Size</span>
+      </li>
+      <li style="cursor: pointer;" ui-sref = "user.frames({'artType':frameType})">
+         <span class="cirle"></span>
+         <span class="text">4 Frame</span>
+      </li>
+      <li class="active">
+         <span class="cirle"></span>
+         <span class="text">5 Finalise</span>
+      </li>
+   </ul>
+</div>
+
+<!--image_uploading_steps-->
+
+<!--product section-->
+<section class="faq_section start_framing_section framing_steps">
+ <div class="container" ng-init="getFrame()">
+  <div class="row">
+     <div class="col-md-4 steps_info final_step">
+        <div class="frame_info">
+          <div class="maintitle">{{framesData.frameName}}</div>
+          <p>{{framesData.frameOverview}}<p>
+        </div>
+        <div class="title">Customise it your way.</div>
+        <div class="frame_filter">
+           <label id="select_box_label">Choose a mat border:</label>
+/*
+           <div class="select-style" ng-init = "getArtSizes()"> 
+             <select ng-if = "art.artSizeType.frameSize != 'XXL' " ng-options="mat._id as mat.matColor for mat in matData" ng-model="art.matColor" ng-change = "getMatDetails(art.matColor)"></select>
+             
+             <select ng-if = "art.artSizeType.frameSize == 'XXL'">
+                <option value="{{art.matColor}}">NO MAT</option>
+             </select>
+           </div>
+
+           <p>Dynamic copy explaining selected mat border option. Lorem ipsum dolor sit amet, consectetuer adipiscing</p>
+           <div class="specification">
+              <div class="title">Specifications:</div>
+              <ul>
+                 <li>
+                    <label>Approximate artwork size</label>
+                    <span>{{art.artSize.width | number : 0}} cm x {{art.artSize.height | number : 0}} cm</span>
+                 </li>
+                 <li>
+                    <label>Approximate frame size</label>
+                    <span>{{art.artSize.width + 2.7 | number : 0}} cm x {{art.artSize.height + 2.7 | number : 0}} cm</span>
+                 </li>
+              </ul>
+              <ul>
+                 <li>
+                    <!-- <label>{{art.artSizeType.frameSize}}</label> -->
+                    <label>{{frameSizesArray[art.artSizeType.frameSize]}} Frame</label>
+                    <span>${{itemPrice}}</span>
+                 </li>
+                 <li ng-if = "matResp.matPrice != 0">
+                    <label>Mat Price</label>
+                    <span>${{matResp.matPrice}}</span>
+                 </li>
+              </ul>
+              <ul class="total">
+                 <li> 
+                    <label>TOTAL</label>
+                    <span>${{itemPrice + matResp.matPrice}}</span>
+                 </li>
+              </ul>
+
+           </div>
+        </div>
+     </div>
+     <div class="col-md-4 col-md-offset-1">
+         <div  ng-if = "imagetype == 'canvasimage'" class="product_slider" style="text-align: center;">
+            <preview-canvas ng-model="art.matColor" productimage = "{{productImagedata}}"
+            matcolor = "{{matColour}}" artsize = "{{artSizeCost.frameSize}}"
+            productw = "{{productImgDimension.width}}" producth = "{{productImgDimension.height}}">
+            </preview-canvas>
+         </div>
+         
+         <div ng-if = "imagetype == 'wallimage'" class="product_slider" style="text-align: center;">
+            <div class="wall_frame">
+              <div class="frame_image">
+                <!-- <img src="{{productImagedata.productImg}}" alt="No Image" /> -->
+                <wall-canvasss ng-model="art.matColor" productimage = "{{productImagedata}}"
+                matcolor = "{{matColour}}" artsize = "{{artSizeCost.frameSize}}"
+                productw = "{{productImgDimension.width}}" producth = "{{productImgDimension.height}}">
+                </wall-canvasss>
+              </div>
+            </div>  
+         </div>
+
+         <div class="product_slider slick-initialized slick-slider slick-dotted" style="text-align: center;" ng-repeat = "images in framesData.frameImages" ng-if="imageIndex == $index">
+            <img ng-if = "!images.isPrimary && images.imageType == 'SECONDRY'" src="/images/frames/{{images.imageType}}/{{images.imgPath}}" alt="image" /> 
+         </div>
+
+         
+         <div class="slider_bottom">
+           <div class="social_compare">
+              <ul>
+                 <li><a href="javascript:void(0)"><i class="zmdi zmdi-facebook zmdi-hc-fw"></i></a></li>
+                 <li><a href="javascript:void(0)"><i class="zmdi zmdi-twitter zmdi-hc-fw"></i></a></li>
+                 <li><a href="javascript:void(0)"><i class="zmdi zmdi-pinterest zmdi-hc-fw"></i></a></li>
+                 <li><a href="javascript:void(0)"><i class="zmdi zmdi-instagram zmdi-hc-fw"></i></a></li>
+              </ul>
+              <div class="compare">
+                <input ng-if = "isCompare" type="checkbox" id="compare" checked disabled />
+                <input ng-if = "!isCompare" type="checkbox" ng-model="isCompare" value = "false" id="compare" ng-change = "addToCompare(art, isCompare)" />
+                <label for="compare">Compare</label>
+              </div>
+           </div>
+           <a href="javascript:void(0)" class="red_button button add_to_cart" ng-click = "addToCart(art)">Add to Cart</a>
+         </div>
+     </div>
+
+
+     
+     <div class="col-md-2 col-md-offset-1">
+        <ul class="thumbnails"> 
+            <!-- ng-if = "imagetype == 'wallimage'"  -->
+          <li ng-click = "imageSelect('canvasimage')">
+            <preview-canvasss ng-model="art.matColor" productimage = "{{productImagedata}}"
+            matcolor = "{{matColour}}" artsize = "{{artSizeCost.frameSize}}"
+            productw = "{{productImgDimension.width}}" producth = "{{productImgDimension.height}}">
+            </preview-canvasss>
+          </li>
+        </ul>
+        <!-- ng-if = "imagetype == 'canvasimage'" -->
+        <ul class="thumbnails">
+          <li ng-click = "imageSelect('wallimage')">
+              <div class="wall_frame">
+                  <div class="frame_image">
+                      <wall-canvas ng-model="art.matColor" productimage = "{{productImagedata}}"
+                      matcolor = "{{matColour}}" artsize = "{{artSizeCost.frameSize}}"
+                      productw = "{{productImgDimension.width}}" producth = "{{productImgDimension.height}}">
+                      </wall-canvas>
+                    <!-- <img src="{{productImagedata.productImg}}" alt="No Image" /> -->
+                  </div>
+              </div>
+          </li>  
+        </ul>
+        
+        <div ng-repeat = "images in framesData.frameImages">
+          <ul class="thumbnails" ng-if = "!images.isPrimary && images.imageType == 'SECONDRY'" ng-click = "imageSelect($index)">
+            <li>
+                <img src="/images/frames/{{images.imageType}}/{{images.imgPath}}" width="150" height="200" alt="image" /> 
+            </li>
+              <!-- <figure id="frame"> 
+                <img src="/images/uploads/{{images.imgPath}}" width="70" height="70" alt="image" /> 
+              </figure> -->
+              <!-- <img ng-if = "!images.isPrimary && images.imageType == 'SECONDRY'" src="/images/uploads/{{images.imgPath}}" width="70" height="70" alt="thumb"/ >
+            </li>
+            <!-- <li><img src="images/thumb.jpg" width="70" height="70" alt="thumb"/></li>
+            <li><img src="images/thumb.jpg" width="70" height="70" alt="thumb"/></li> -->
+         </ul>
+        </div>
+     </div>
+  </div>
+ </div>
+</section>
+
+<div ng-if = "validImage" class="loading_div" ng-show='obj.loading'>
+  <center><img class="loading_img" src="./../images/Eclipse.gif"></center>
+</div>

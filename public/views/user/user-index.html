@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html ng-app="framebridge" ng-controller = "mainController">
+<head>
+<meta charset="utf-8">
+<!-- <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
+ -->
+ <meta name="{{metaTag}}" description={{metaDescription}}/> 
+<!-- <meta name="fragment" content="!"> -->
+<title>Made By Ollie</title>
+<!-- <meta name="description" content="{{ seo.metaDescription }}">
+ -->
+
+<!--Start of Zendesk Chat Script-->
+<script type="text/javascript">
+window.$zopim||(function(d,s){var z=$zopim=function(c){
+z._.push(c)},$=z.s=
+d.createElement(s),e=d.getElementsByTagName(s)[0];z.set=function(o){z.set.
+_.push(o)};z._=[];z.set._=[];$.async=!0;$.setAttribute('charset','utf-8');
+$.src='https://v2.zopim.com/?56Qr64HjYwih0f4VJtKPgKIObrahV1ZD';z.t=+new Date;$.
+type='text/javascript';e.parentNode.insertBefore($,e)})(document,'script');
+</script>
+<!--End of Zendesk Chat Script-->
+
+
+
+<link rel="shortcut icon" href="images/favicon.png" type="image/png">
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.7.1/slick.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.7.1/slick-theme.min.css">
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css">
+<link href="/views/styles/css/fonts.css" rel="stylesheet"/>
+<link href="/views/styles/css/style.css" rel="stylesheet"/>
+<link href="/views/styles/css/responsive.css" rel="stylesheet"/>
+<link rel="stylesheet" href="./styles/angular-toastr.css" type="text/css" />
+<link rel="stylesheet" href="./styles/cropper.css" type="text/css" />
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+
+<script src="./libs/angular/angular/angular.js"></script>
+<script src="./javascripts/jqlite.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.js"></script>
+<script src="./javascripts/angular-slick.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="https://rawgit.com/dwmkerr/angular-modal-service/master/dst/angular-modal-service.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+
+<script src="./libs/angular/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+<!-- <script src="./javascripts/ui-cropper.js"></script>
+<script src="./javascripts/custom-javascript.js"></script> -->
+
+<script src="./javascripts/cropper.js"></script>
+<!-- <script src="./javascripts/main.js"></script> -->
+<script src="./scripts/config.js"></script>
+<script src="./scripts/config.router.js"></script>
+<!-- <script type="text/javascript" src="http://cdn.jsdelivr.net/jquery.slick/1.6.0/slick.min.js"></script> -->
+<script src="https://www.paypalobjects.com/api/checkout.js" data-version-4></script>
+</head>
+
+<body>
+<!--Header Starts-->
+<header class="main_header">
+   <div class="container" ng-init = "checkSession()">
+       <nav class="navbar navbar-default">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
+             <a class="navbar-brand" style="cursor: pointer;"><img ui-sref = "/" src="images/logo.svg" width="156" height="25" alt="logo"/></a>
+             
+            </div>
+            <div id="navbar" class="navbar-collapse collapse" aria-expanded="false" style="height: 1px;">
+              <ul class="nav navbar-nav navbar-center">
+                <li><a style="cursor: pointer;" ui-sref="user.pages({'page':'start-framing'})">START FRAMING</a></li>
+                <li><a style="cursor: pointer;" ui-sref="user.pages({'page':'howitworks'})">HOW IT WORKS</a></li>
+                <li><a style="cursor: pointer;" ui-sref = "user.products">PRODUCTS</a></li>
+                <li><a style="cursor: pointer;" ui-sref="user.pages({'page':'inspirational'})">INSPIRATION</a></li>
+                <li ng-if = "!loggedIn" class="mobile_only">
+                  <span>JOIN</span>&nbsp;&nbsp;/&nbsp;&nbsp;<span>span>LOGIN</span>
+                </li>
+                <li ng-if = "loggedIn" class="mobile_only"><a ui-sref = "user.myAccount">MY ACCOUNT</a>&nbsp;&nbsp;/&nbsp;&nbsp;<a ng-click = "getLogout()">LOGOUT</a></li>
+              </ul>
+            </div>
+            <div class="navbar-right">                 
+              <li class="cartlist-icon" style="cursor: pointer;"><a ui-sref = "user.addToCart" ><img src="images/cart.png" width="18" height="18" alt="cart"/></a><span ng-if = "cartItems > 0" class="items_no">{{cartItems}}</span></li>
+              <li ng-if = "compare > 0" class="compare_icon"><a style="cursor: pointer;" ui-sref = "user.compare"><i class="zmdi zmdi-compare zmdi-hc-fw"></i></a></li>
+               <li ng-show = "!loggedIn" class="login_dropdown">
+               <span style="cursor: pointer;">JOIN&nbsp;&nbsp;/&nbsp;&nbsp;LOGIN</span>
+                <ul class="dropdown-menu">
+                <li>
+                  <ul id="nav-tabs-wrapper" class="nav nav-tabs nav-tabs-horizontal">
+                    <li class="active"><a href="#htab1" data-toggle="tab">LOGIN</a></li>
+                    <li><a href="#htab2" data-toggle="tab">CREATE ACCOUNT</a></li>
+                  </ul> 
+                  <div class="tab-content">
+                    <div role="tabpanel" class="tab-pane fade in active" id="htab1">
+                      <form ng-controller = "loginCtrl" id="loginForm" name="loginForm" ng-submit = "vm.onUserSubmit()">
+                          <div class="form-group"> 
+                            <input type="email" name="username" class="form-control" placeholder="Email" ng-model="credentials.email" ng-pattern="/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/" required> 
+                            <span style="color:red " ng-show="loginForm.username.$error.required && loginForm.username.$touched">This field is required</span>
+                            <span style="color:rgb(175, 65, 65)" ng-show="loginForm.username.$error.pattern">Enter Valid Character</span>
+                          </div>
+                          
+                          <div class="form-group"> 
+                            <input type="password" name="password" class="form-control" placeholder="Password" ng-model="credentials.password" ng-minlength="5" ng-maxlength="20"
+                            maxlength="21" required> 
+                            <span style="color:red " ng-show="loginForm.password.$error.required && loginForm.password.$touched">This field is required</span>
+                            <span style="color:rgb(185, 73, 73);" ng-show="loginForm.password.$error.pattern">Enter Valid Character</span>
+                          </div>
+                          
+                          <div class="form-group m_top20"> 
+                          <button ng-disabled="loginForm.$invalid" ng-click = "signin(credentials)" class="btn login_btn">Login</button>
+                          <a ui-sref="forgot-password" class="fortgot">Forgotton password?</a>
+                          </div>
+                          <!-- <div class="social_section">
+                            <p>Or login with:</p>
+                            <a href="#" class="fb"><img src="images/fb.svg" alt=""/> FACEBOOK</a>
+                            <a href="#" class="gplus"><img src="images/gplus.svg" alt=""/> GOOGLE+</a>
+                          </div> -->
+                          
+                          
+                      </form>
+                      
+                    </div>
+                    <div role="tabpanel" class="tab-pane fade" id="htab2">
+                      <form  ng-controller = "registerCtrl" id="signup" name = "signup">
+                          <div class="form-group"> 
+                            <input type="text" class="form-control" name = "firstname" placeholder="First name" ng-model="credentials.firstName" ng-pattern="/^[a-z ,.'-]+$/i" ng-minlength="3"
+                            ng-maxlength="20" maxlength="21" required> 
+                            <span style="color:red " ng-show="signup.firstname.$error.required && signup.firstname.$touched">This field is required</span>
+                            <span style="color:rgb(185, 73, 73);" ng-show="signup.firstname.$error.pattern">Enter Valid Character</span>
+                          </div>
+                          <div class="form-group"> 
+                            <input type="text" class="form-control" name = "lastname" placeholder="Last name" ng-model="credentials.lastName" ng-pattern="/^[a-z ,.'-]+$/i" ng-minlength="3"
+                            ng-maxlength="20" maxlength="21" required> 
+                            <span style="color:red " ng-show="signup.lastname.$error.required && signup.lastname.$touched">This field is required</span>
+                            <span style="color:rgb(185, 73, 73);" ng-show="signup.lastname.$error.pattern">Enter Valid Character</span>
+                          </div>
+                          <div class="form-group"> 
+                            <input type="email" class="form-control" name="email" placeholder="Email" ng-model="credentials.email" ng-pattern="/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/"
+                            required> 
+                            <span style="color:red " ng-show="signup.email.$error.required && signup.email.$touched">This field is required</span>
+                            <span style="color:rgb(175, 65, 65)" ng-show="signup.email.$error.pattern">Enter Valid Character</span>
+                          </div>
+                          <div class="form-group"> 
+                            <input type="password" class="form-control" name="password" placeholder="Password (at least 6 characters)" ng-model="credentials.password" ng-minlength="5" ng-maxlength="20"
+                            maxlength="21" required> 
+                            <div class="validationError" ng-show="signup.password.$error.minlength">
+                              <span style="color:rgb(175, 65, 65) ">password too Short (atleast 5 characters)</span>
+                            </div>
+                            <div class="validationError" ng-show="signup.password.$error.maxlength && signup.password.$dirty">
+                                <span style="color:rgb(175, 65, 65) ">password maximum length exceeds</span>
+                            </div>
+                          </div>
+                          <div class="form-group"> 
+                            <input type="password" class="form-control" name="confirmPassword" placeholder="Confirm password" ng-model="credentials.confirmPassword"  required name="confirmPassword"
+                            id="confirmPassword" ng-pattern="credentials.password"> 
+                            <div class="validationError" ng-messages="signup.confirmPassword.$error" ng-show=" signup.confirmPassword.$error.pattern && (!signup.confirmPassword.$pristine)"
+                            role="alert ">
+                              <span style="color:rgb(175, 65, 65)" ng-message="pattern">password do not match</span>
+                            </div>
+                          </div>
+                          <div class="form-group">
+                            <button ng-disabled="signup.$invalid" class="btn login_btn" ng-click = "register(credentials)">CREATE ACCOUNT</button> 
+                          </div>
+                          <!-- <div class="social_section">
+                            <p>Or Signup with:</p>
+                            <a href="#" class="fb"><img src="images/fb.svg" alt=""/> FACEBOOK</a>
+                            <a href="#" class="gplus"><img src="images/gplus.svg" alt=""/> GOOGLE+</a>
+                          </div> -->
+                      </form>
+                    </div>
+                  </div> 
+                </li> 
+              </ul> 
+            </li>
+            <li ng-show = "loggedIn"><a ui-sref = "user.myAccount">MY ACCOUNT</a>&nbsp;/&nbsp;<a href="" ng-click = "getLogout()">LOGOUT</a></li>
+          </div>
+            <!-- <div class="navbar-right">
+              <li class="cartlist-icon"><a href="javascript:void(0)" ui-sref = "user.addToCart" ><img src="images/cart.png" width="18" height="18" alt="cart"/></a><span ng-if = "cartItems > 0" class="items_no">{{cartItems}}</span></li>
+              <li ng-hide = "loggedIn"><a ui-sref = "register">JOIN</a>&nbsp;&nbsp;/&nbsp;&nbsp;<a ui-sref = "login">LOGIN</a></li>
+              <li ng-show = "loggedIn"><a ui-sref = "user.myAccount">ACCOUNT</a>&nbsp;/&nbsp;<a href="" ng-click = "getLogout()">LOGOUT</a></li>
+
+            </div> -->
+          <!--/.container-fluid -->
+        </nav>
+   </div>
+</header>
+
+<!--Header Ends-->
+
+
+<div class="app" ui-view></div>
+
+
+<footer>
+   <section class="main_footer">
+     <div class="container">
+       <div class="footer_signature col-md-12">
+
+        <p class="hande_made">Handmade custom<br/>
+          Picture framing
+          </p>
+          <a href="javascript:void(0)"><img src="images/footer_logo.svg" alt="logo"/></a>
+       </div>
+       <div class="row">
+           <div class="panel-group col-md-8" id="accordion">
+              <div class="row">
+                <div class="col-md-3">
+                  <!-- Asia Starts-->
+                  <div class="panel panel-default">
+                    <div class="panel-heading">
+                      <h4 class="panel-title"> <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne"> ABOUT </a> </h4>
+                    </div>
+                    <div id="collapseOne" class="panel-collapse collapse in">
+
+                      <div class="panel-body">
+                        <ul>
+                          <li><a ui-sref="user.pages({'page':'start-framing'})">Start framing</a></li>
+                          <li><a ui-sref="user.pages({'page':'howitworks'})">How it works</a></li>
+                          <li><a ui-sref="user.pages({'page':'pricing'})">Pricing</a></li>
+                          <li><a ui-sref="user.pages({'page':'inspirational'})">Inspiration</a></li>
+                          <li><a ui-sref="user.pages({'page':'faq'})">FAQ</a></li>
+                        </ul>
+                      </div>
+
+                    </div>
+                  </div>
+                  <!-- Asia ends-->
+                </div>
+                <div class="col-md-3">
+                  <!-- Asia Starts-->
+                  <div class="panel panel-default">
+                    <div class="panel-heading">
+                      <h4 class="panel-title"> <a data-toggle="collapse" data-parent="#accordion" href="#collapseSecond" ui-sref = "user.products"> PRODUCTS </a> </h4>
+                    </div>
+                    <div id="collapseSecond" class="panel-collapse collapse in">
+
+                      <div class="panel-body">
+                        <ul>
+                          <li><a style="cursor: pointer;" ui-sref = "user.products">Our frames</a></li>
+                          <li><a style="cursor: pointer;" ui-sref="user.pages({'page':'designed-by ollie'})">Designed By Ollie</a></li>
+                          <li><a style="cursor: pointer;" ui-sref="user.pages({'page':'gift-ideas'})">Gift ideas</a></li>
+                          <li><a style="cursor: pointer;" ui-sref="user.pages({'page':'gift-cards'})">Gift cards</a></li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- Asia ends-->
+                </div>
+                <div class="col-md-3">
+                  <!-- Asia Starts-->
+                  <div class="panel panel-default">
+                    <div class="panel-heading">
+                      <h4 class="panel-title"> <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree"> COMPANY </a> </h4>
+                    </div>
+                    <div id="collapseThree" class="panel-collapse collapse in">
+
+                      <div class="panel-body">
+                        <ul>
+                          <li><a  ui-sref="user.pages({'page':'our-story'})">Our story</a></li>
+                          <li><a style="cursor: pointer;" ui-sref="user.pages({'page':'art-of-framing'})">Art of framing</a></li>
+                          <li><a style="cursor: pointer;" ui-sref="user.pages({'page':'news-from ollie'})">News from Ollie</a></li>
+                          <li><a style="cursor: pointer;" ui-sref="user.pages({'page':'press- reviews'})">Press & reviews</a></li>
+                          <li><a style="cursor: pointer;" ui-sref="user.pages({'page':'commercial-enquiries'})">Commercial enquiries</a></li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- Asia ends-->
+                </div>
+                <div class="col-md-3">
+                  <!-- Asia Starts-->
+                  <div class="panel panel-default">
+                    <div class="panel-heading">
+                      <h4 class="panel-title"> <a data-toggle="collapse" data-parent="#accordion" href="#collapseFour"> HELP </a> </h4>
+                    </div>
+                    <div id="collapseFour" class="panel-collapse collapse in">
+
+                      <div class="panel-body">
+                        <ul>
+                          <li><a style="cursor: pointer;" ui-sref="user.pages({'page':'shipping'})">Shipping</a></li>
+                          <li><a style="cursor: pointer;" ui-sref="user.pages({'page':'returns'})">Returns</a></li>
+                          <li><a style="cursor: pointer;" ui-sref="user.pages({'page':'contact-ollie'})">Contact Ollie</a></li>
+                          <li><a style="cursor: pointer;" ui-sref="user.pages({'page':'support'})">Support</a></li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- Asia ends-->
+                </div>
+              </div>
+              <!-- 1st row ends-->
+            </div>
+           <div class="col-md-4 newsletter">
+               <label>Subscribe for fresh updates from Ollie.</label>
+               <form>
+                  <input type="text" placeholder="Enter your email">
+                  <button>SUBSCRIBE</button>
+               </form>
+                <ul class="social_links">
+                  <li><a href="javascript:void(0)"><i class="zmdi zmdi-facebook zmdi-hc-fw"></i></a></li>
+                  <li><a href="javascript:void(0)"><i class="zmdi zmdi-twitter zmdi-hc-fw"></i></a></li>
+                  <li><a href="javascript:void(0)"><i class="zmdi zmdi-google-plus zmdi-hc-fw"></i></a></li>
+                  <li><a href="javascript:void(0)"><i class="zmdi zmdi-pinterest zmdi-hc-fw"></i></a></li>
+                  <li><a href="javascript:void(0)"><i class="zmdi zmdi-instagram zmdi-hc-fw"></i></a></li>
+               </ul>
+           </div>
+       </div>
+     </div>
+   </section>
+   <section class="secondary_footer">
+      <div class="container">
+        <div class="row">
+         <div class="col-md-4 col-sm-6 col-xs-6 store_links">
+           <div class="row">
+              <div class="col-md-6 col-sm-6">
+                 <a href="javascript:void(0)"><img src="images/iphone_store.png" alt="iphone_store" width="137" height="41"/></a>
+              </div>
+              <div class="col-md-6 col-sm-6">
+                 <a href="javascript:void(0)"><img src="images/google_play.png" alt="google" width="137" height="41"/></a>
+              </div>
+            </div>
+         </div>
+         <div class="col-md-7 col-sm-6 col-xs-6">
+           <div class="row">
+            <div class="col-md-4 col-sm-6">
+              &copy; 2017 MADE BY OLLIE
+           </div>
+           <div class="col-md-6 col-sm-6 policy">
+              <ul>
+                 <li><a href="javascript:void(0)">PRIVACY POLICY</a></li>
+                 <li><a href="javascript:void(0)">TERMS & CONDITIONS </a></li>
+              </ul>
+           </div>
+           </div>
+         </div>
+       </div>
+      </div>
+   </section>
+</footer>
+
+
+<div ng-if = "validImage" class="loading_div" ng-show='obj.loading'>
+  <center><img class="loading_img" src="./../images/Eclipse.gif"></center>
+</div>
+
+
+<!--  Our Custom Scripts -->
+
+
+<script src="./libs/angular/angular-animate/angular-animate.js"></script>
+<script src="./libs/angular/angular-aria/angular-aria.js"></script>
+<script src="./libs/angular/angular-cookies/angular-cookies.js"></script>
+<script src="./libs/angular/angular-messages/angular-messages.js"></script>
+<script src="./libs/angular/angular-resource/angular-resource.js"></script>
+<script src="./libs/angular/angular-sanitize/angular-sanitize.js"></script>
+<script src="./libs/angular/angular-touch/angular-touch.js"></script>
+<script src="./libs/angular/angular-material/angular-material.js"></script>
+<script src="./javascripts/angular-toastr.tpls.js" type="text/javascript"></script>
+
+<script src="./controllers/user/main/controller.js"></script>
+<script src = "./controllers/user/main/mainServices.js"></script>
+
+<!-- <script src="https://maps.googleapis.com/maps/api/js?libraries=places"></script>
+ -->
+<script type="text/javascript" src="//maps.googleapis.com/maps/api/js?key=AIzaSyBWFq_UoUG_zusW-CL2nRXhwqhPQ8gVpuc&libraries=places&language=en&v=3"></script>
+
+
+<script src="/admin/pages/PageController.js"></script>
+<script src="/admin/pages/PageService.js"></script>
+<script src = "controllers/auth/login/login.controller.js"></script>
+<script src = "controllers/common/services/authentication.service.js"></script>
+<script src = "controllers/auth/register/register.controller.js"></script>
+<script src = "controllers/common/services/authentication.service.js"></script>
+
+<script src="./javascripts/dirPagination.js" type="text/javascript"></script>
+<script src="./javascripts/angular-base64-upload/src/angular-base64-upload.js" type="text/javascript"></script>
+<script src="./javascripts/sweetalert/dist/sweetalert.min.js" type="text/javascript"></script>
+<script src="./javascripts/angular-img-cropper.min.js" type="text/javascript"></script>
+
+<!--scripts-->
+
+
+
+<!-- Vendor -->
+<script src="./libs/angular/angular-ui-router/release/angular-ui-router.js"></script>
+<script src="./libs/angular/ngstorage/ngStorage.js"></script>
+<script src="./libs/angular/angular-ui-utils/ui-utils.js"></script>
+
+
+<!-- lazyload -->
+<script src="./libs/angular/oclazyload/dist/ocLazyLoad.js"></script>
+<!-- translate -->
+<script src="./libs/angular/angular-translate/angular-translate.js"></script>
+<script src="./libs/angular/angular-translate-loader-static-files/angular-translate-loader-static-files.js"></script>
+<script src="./libs/angular/angular-translate-storage-cookie/angular-translate-storage-cookie.js"></script>
+<script src="./libs/angular/angular-translate-storage-local/angular-translate-storage-local.js"></script>
+<!-- loading-bar -->
+<script src="./libs/angular/angular-loading-bar/build/loading-bar.js"></script>
+
+
+
+
+
+<!-- App -->
+
+<script src="./scripts/config.lazyload.js"></script>
+
+<script src="./scripts/app.ctrl.js"></script>
+
+<script src="./scripts/directives/lazyload.js"></script>
+<script src="./scripts/directives/ui-jp.js"></script>
+<script src="./scripts/directives/ui-nav.js"></script>
+<script src="./scripts/directives/ui-fullscreen.js"></script>
+<script src="./scripts/directives/ui-scroll.js"></script>
+<script src="./scripts/directives/ui-toggle.js"></script>
+
+
+<script src="./scripts/directives/valid-number.js"></script>
+<!-- <script src="./scripts/directives/google-billing.js"></script> -->
+<!-- <script src="./scripts/directives/google-shipping.js"></script> -->
+<script src="./scripts/directives/slick.js"></script>
+
+
+
+<script src="./scripts/filters/fromnow.js"></script>
+<script src="./scripts/services/ngstore.js"></script>
+<script src="./scripts/services/ui-load.js"></script>
+<script src="./scripts/services/angular-uuid.js"></script>
+
+<script src="/views/styles/js/custom.js"></script>
+<script type="text/javascript" src = "https://cdnjs.cloudflare.com/ajax/libs/URI.js/1.18.12/URI.min.js"></script>
+
+
+
+<!--  End of Our Custom Scripts -->
+
+
+</body>
+</html>

@@ -1,0 +1,41 @@
+
+
+<div class="panel" ng-init="listSEO()">
+    <div class="panel-body">
+
+        <div id="page-content-wrapper">
+            <div class="container-fluid">
+                <table id="example1" class="table table-bordered table-striped" show-filter="isFiltersVisible">
+                    <tr>
+                     <th>Keyword</th>
+                     <th>Description</th>
+                     <th>Type</th>
+                     <th>Action</th>
+                    </tr>
+                    <tr ng-repeat="SEOData in data">
+                        <td data-title="'Title'">{{SEOData.keyword}}</td>
+                        <td data-title="'Description'">{{SEOData.description}}</td>
+                        <td data-title="'Type'">{{SEOData.type}}</td>
+                        <td data-title="'Action'">
+                            <button ui-sref="admin.edit_seo({'id':SEOData._id})" class="fa fa-pencil" aria-hidden="true" ></button>
+                            <!-- <button class="fa fa-trash" aria-hidden="true" ng-click="deleteInspirationalData(inspirationData)"></button> -->
+                        </td>
+                    </tr>
+
+                      <tr ng-show="!data.length">
+                          <td class="text-center" colspan="11">
+                          <div class="alert alert-danger">
+                              No SEO Data Available
+                          </div>
+                          </td>
+                      </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="loading_div" ng-show='obj.loading'>
+  <center><img class="loading_img" src="./../images/Eclipse.gif"></center>
+</div>

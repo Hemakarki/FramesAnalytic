@@ -1,0 +1,79 @@
+<!--free shipping-->
+<section class="free_shipping">
+    FREE SHIPPING AUSTRALIA-WIDE
+ </section>
+ <!--free shipping-->
+ 
+ 
+ 
+ <!--inner page filter-->
+ <section class="inner_page_filter framing_filters" ng-init = "frameColor()">
+   <div class="container" ng-init = "getFrames()">
+      <div class="row">
+         <div class="col-md-6 text_section">
+           <div class="title">Select the perfect frame.</div>
+           <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud.</p>
+         </div>
+         <div class="col-md-5 pull-right">
+           <div class="filters">
+             <div class="title">Filter by frame colour:</div>
+             <ul>
+               <li ng-repeat = "color in colors">
+                 <a href="" style="background:#000" ng-click="getFrames('{{color.frameColor}}')">{{color.frameColor}}</a>
+               </li>
+             </ul>
+           </div>
+         </div>
+      </div>
+   </div>
+ </section>
+ <!--inner page filter-->
+ 
+ <!--product section-->
+ <section class="product_section start_framing_section framing_steps">
+    <div ng-if = "frames.length" class="container">
+ 
+       <div class="col-md-4 col-sm-6 col" ng-repeat="frame in frames">
+         <div class="col-md-8 col-md-offset-2" ng-repeat = "images in frame.frameImages">
+            <div class="imagecol" ng-if = "images.imageType == 'SQUAR'">
+              <preview-canvas-frame productimage = "{{productImg}}" frameimage = "{{images.imgPath}}"
+              frameid= "{{frame._id}}" artsize = "S" productw = "6.77" producth = "10.16" >
+               <canvas ng-attr-id="{{frame._id}}"  width="221" height="277" />
+             </preview-canvas-frame>
+            </div>
+            <div class="textcol" ng-if = "images.imageType == 'SQUAR'">
+                <div class="title"> 
+                   <span>{{frame.frameName}}</span>
+               </div>
+               <span>{{frame.frameDescription}}</span>
+            </div>
+         </div>
+       </div>
+    </div>
+    <div ng-if = "!frames.length" class="container">      
+        <div class="row">
+            <div class="col-md-5 col-sm-5 steps_info final_step compare_products">
+                <div class="compare_titles empty">              
+                    <ul>No frame for desired colour</ul>
+                </div> 
+                <div class="compare_buttons">               
+                    <!-- <button class="grey_btn button large" ui-sref = "/">GO BACK TO FRAME CHOICES</button>
+                    <button class="dr_green_button button large">STILL UNSURE? LET OLLIE HELP</button> -->
+                </div>
+            
+            </div> 
+        </div>
+    </div>
+ </section>
+ <!--product section-->
+ 
+ <!--start framing-->
+ <section class="start_framing">
+    <div class="container">
+       <div class="title">Can’t decide? No worries, let <span>Ollie</span> help.</div>
+       <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam</p>
+       <a class="red_button button help_btn">HELP ME OLLIE</a>
+    </div>
+ </section>
+ <!--start framing-->
+ 

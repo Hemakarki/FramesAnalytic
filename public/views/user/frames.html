@@ -1,0 +1,99 @@
+<!--free shipping-->
+<section class="free_shipping">
+   FREE SHIPPING AUSTRALIA-WIDE
+</section>
+<!--free shipping-->
+
+
+<!--image_uploading_steps-->
+<div class="image_uploading_steps">
+   <ul>
+      <li ui-sref = "user.framesType">
+         <span class="cirle"></span>
+         <span class="text">1 Image</span>
+      </li>
+
+      <li ng-if="frameArtType == 'digital'" style="cursor: pointer;" ui-sref = "user.editImage({'myParam':{'artType':'Digital'}})">
+
+         <span class="cirle"></span>
+         <span class="text">2 Review</span>
+      </li>
+      <li ng-if="frameArtType == 'insta'" style="cursor: pointer;" ui-sref = "user.instagramPhoto">
+         <span class="cirle"></span>
+         <span class="text">2 Review</span>
+      </li>
+      <li ng-if="frameArtType == 'artWork'" style="cursor: pointer;" ui-sref = "user.artWork">
+         <span class="cirle"></span>
+         <span class="text">2 Review</span>
+      </li>
+      <li style="cursor: pointer;" ui-sref = "user.imageSize({'imageType':frameArtType})">
+
+         <span class="cirle"></span>
+         <span class="text">3 Size</span>
+      </li>
+      <li class="active" ui-sref = "user.frames">
+         <span class="cirle"></span>
+         <span class="text">4 Frame</span>
+      </li>
+      <li>
+         <span class="cirle"></span>
+         <span class="text">5 Finalise</span>
+      </li>
+   </ul>
+</div>
+<!--image_uploading_steps-->
+
+<!--inner page filter-->
+<section class="inner_page_filter framing_filters">
+  <div class="container" ng-init = "frameColor()">
+     <div class="row">
+        <div class="col-md-6 text_section">
+          <div class="title">Select the perfect frame.</div>
+          <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud.</p>
+        </div>
+        <div class="col-md-5 pull-right">
+          <div class="filters">
+            <div class="title">Filter by frame colour:</div>
+            <ul>
+              <li ng-repeat = "color in colors">
+                <a href="" style="background:#000" ng-click="getData('{{color.frameColor}}')">{{color.frameColor}}</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+     </div>
+  </div>
+
+</section>
+<!--inner page filter-->
+<!--product section-->
+<section class="product_section start_framing_section framing_steps">
+   <div class="container" ng-init = "getData()">
+      <div class="col-md-4 col-sm-6 col" ng-repeat="frames in frameList">
+        <div class="col-md-8 col-md-offset-2" ng-repeat = "images in frames.frameImages">
+          <div ng-if = "images.imageType == imageType">
+             <div class="imagecol" ui-sref="user.framePreview({foo : frames._id,imageType:frameArtType})" style="cursor: pointer;">
+               <preview-canvas-frame  ng-model="matData" productimage = "{{productImg}}" frameimage = "{{images.imgPath}}"
+               frameid= "{{frames._id}}" artsize = "{{artSize}}" productw = "{{productImgDimension.width}}" producth = "{{productImgDimension.height}}" >
+                <canvas ng-attr-id="{{frames._id}}"  width="221" height="277" />
+              </preview-canvas-frame>
+             </div>
+             <div class="textcol">
+                <div class="title"> <span style="cursor: pointer;" ui-sref = "user.framePreview({foo : frames._id})">{{frames.frameName}}</span></div>
+                <p>{{frames.frameDescription}}</p>
+             </div>
+           </div>
+        </div>
+      </div>
+   </div>
+</section>
+<!--product section-->
+<!--start framing-->
+<section class="start_framing">
+   <div class="container">
+      <div class="title">Can’t decide? No worries, let <span>Ollie</span> help.</div>
+      <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam</p>
+      <a class="red_button button help_btn">HELP ME OLLIE</a>
+   </div>
+</section>
+<!--start framing-->

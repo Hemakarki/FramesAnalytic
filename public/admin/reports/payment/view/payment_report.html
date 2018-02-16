@@ -1,0 +1,93 @@
+<div class="panel" ng-init="PaymentReports()">
+    <div class="panel-body">
+        <!-- RAHUL  CODE -->
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-9">
+                        <!-- <button class="btn btn-primary" ng-click="exportOrderCSV()">
+                            <i class="fa fa-floppy-o" aria-hidden="true"></i> Exports</button> -->
+                    </div>
+                    <div class="col-md-3">
+                        <span class="glyphicon glyphicon-search" style="color:purple"></span>
+                        <input ng-model="myobj.search" placeholder="Search for payment report" my-Enter="PaymentReports('search')" style="width: 140px;"
+                        />
+                    </div>
+
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-lg-4 ">
+                        <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="myobj.startDate" is-open="popup1.opened"
+                            datepicker-options="dateOptions" close-text="Close" placeholder="Start Date" alt-input-formats="altInputFormats"
+                            ng-click="open1()" minDate="dateOptions.minDate" readonly/>
+                    </div>
+                    <div class="col-lg-4 ">
+
+                        <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="myobj.endDate" is-open="popup2.opened"
+                            datepicker-options="dateOptions" close-text="Close" placeholder="End Date" alt-input-formats="altInputFormats"
+                            ng-click="open2()" minDate="dateOptions.minDate" readonly/>
+                    </div>
+                    <div class="col-lg-3 ">
+                        <button type="button" class="btn btn-info" ng-click="PaymentReports()">Search By Date</button>
+                    </div>
+                </div>
+                <br>
+                <table id="example1" class="table table-bordered" ng-table="tableParams" show-filter="isFiltersVisible">
+                    <tr ng-repeat="user in $data track by $index" ng-class="{'bg_completed': user.orderStatus == 'Complete'}">
+                        <td data-title="'Transaction ID'" filter="{transaction_id:'text'}">
+                                {{user.transaction_id}}
+                        </td>
+
+                        <td data-title="'Name'" filter="{name:'text'}">
+                                {{user.firstName}}
+                        </td>
+
+                        <td data-title="'Payment Via'" filter="{payment_method:'text'}">
+                                {{user.payment_method}}
+                        </td>
+
+                        
+                        <td data-title="'Payment Status'" filter="{payment_status:'text'}">
+                                {{user.payment_status}}
+                        </td>
+
+                        <td data-title="'Order Date'" sortable="'createdOn'" filter="{createdOn:'text'}">
+                            <!-- {{user.createdOn | date:'dd/MM/yyyy @ h:mma'}} -->
+                            {{user.createdOn | date:'dd/MM/yyyy'}}
+                        </td>
+
+                        <td data-title="'Total'" sortable="'totalPrice'" filter="{totalPrice:'text'}" ng-disabled="user.orderStatus=='Complete'">
+                            {{user.totalPrice}}
+                        </td>
+                        
+                    </tr>
+                    <tr ng-show="!$data.length">
+                        <td class="text-center" colspan="11">
+                            <div class="alert alert-danger">
+                                No Payment Report Available
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal" id="delete" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-body">
+                <p>
+                    Are You Sure!!!!!! You want to Delete
+                </p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="goavailable()" data-toggle="modal">Yes</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">CANCEL</button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,104 @@
+<div ng-if="loaderStart" loader-css="line-scale-pulse-out" class="loader"></div>
+<!-- <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a ui-sref="dashboard">Home</a></li>
+    <li class="breadcrumb-item active">Barbers</li>
+</ol> -->
+<div class="panel" ng-init="pageChanged()">
+    <div class="panel-body">
+        <!-- RAHUL  CODE -->
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+            <div class="container-fluid">
+                <div class="row">
+                        <div class="col-lg-6" style="margin-left: 300px;"></div>
+                        <div>
+                            <span class="glyphicon glyphicon-search" style="color:purple"></span>
+                            <input ng-model="myobj.search" placeholder="Search for..." my-Enter = "pageChanged('search')" style="width: 140px;"/>
+                        </div>
+                    <div class="col-md-2">
+                        <button class="btn btn-primary" ng-click="exportUserCSV()" style="float:left"><i class="fa fa-floppy-o" aria-hidden="true"></i> Exports</button>
+                    </div>
+                </div>
+                <br>
+                <table id="example1" class="table table-bordered table-striped" ng-table="tableParams" show-filter="isFiltersVisible">
+                    <tr ng-repeat="user in $data track by $index">
+                         <td data-title="'Email'" sortable="'email'" filter="{email:'text'}">
+                          {{user.email}}
+                        </td>
+
+                        <td data-title="'Name'">
+                          {{user.billingAddress.firstName}} {{user.billingAddress.lastName}}
+                        </td>
+
+                        <td data-title="'No. of Orders'"  filter="{email:'text'}">
+                          <a ng-if = "user.UsersOrders.length != 0" data-toggle="tooltip" title="View Details" ui-sref="admin.listUserOrders({id:user._id})" style="color: green;">
+                            <center>{{user.UsersOrders.length}}</center>
+                          </a>
+                          <span ng-if = "user.UsersOrders.length == 0" data-toggle="tooltip" title="View Details">
+                            <center>{{user.UsersOrders.length}}</center>
+                          </spa>
+                        </td>
+                        <td data-title="'View Detail'">
+                            <a type="submit" ui-sref="admin.userDetails({id:user._id})" class="glyphicon glyphicon-eye-open" style="font-size: 14px;margin-left: 20px;color: #9e0e0b;" data-toggle="tooltip" title="View Details"></a>
+                        </td>
+                        <td data-title="'Edit Order'">
+                            <a type="submit" ui-sref="admin.editDetails({id:user._id})" class="glyphicon glyphicon-edit" style="font-size: 14px;margin-left: 20px;color: #9e0e0b;" data-toggle="tooltip" title="Edit Details"></a>
+                        </td>
+                        <td ng-if = "user.hash && user.salt" data-toggle="tooltip" data-title="'Is Guest'">
+                            <center>False</center>
+                        </td>
+                        <td ng-if = "!user.hash && !user.salt" data-toggle="tooltip" data-title="'Is Guest'">
+                            <center>True</center>
+                        </td>
+                    </tr>
+
+                       <tr ng-show="!$data.length">
+                          <td class="text-center" colspan="11">
+                          <div class="alert alert-danger">
+                              No Users Available
+                          </div>
+                          </td>
+                      </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal" id="delete" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-body">
+                <p>
+                    Are You Sure!!!!!! You want to Delete
+                </p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="confirmdelete()" data-toggle="modal">Yes</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">CANCEL</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal" id="undelete" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-body">
+                <p>
+                    Are You Sure!!!!!! You want to Un Delete
+                </p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="confirmundelete()" data-toggle="modal">Yes</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">CANCEL</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style type="text/css">
+    .setColor{
+        color:blue !important;
+    }
+</style>

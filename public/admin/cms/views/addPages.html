@@ -1,0 +1,81 @@
+<ol class="breadcrumb">
+    <li><a ui-sref="admin.dashboard">Dashboard</a></li>
+    <li class="active"><a ui-sref="admin.addPage">Add Page</a></li>
+</ol>
+<div class="container">
+<div class="row">
+  <div class="col-md-10">
+  <div class="panel panel-login">
+<aside class="right-side">
+    <!-- Content Header (Page header) -->
+     <div class="panel-heading">
+      <h4> CMS </h4>
+     </div>
+    <!-- Main content -->
+    <section class="content">
+    <div class="panel-body">
+    <div class="row">
+     <div class="col-lg-12">
+      <form role="form" name="CMSForm">
+            <div class="box-body">
+            <div class="form-group row">
+                <div class="col-sm-3">
+                <label>Title</label>
+                </div>
+                <div class="col-sm-9">
+                <input type="text" class="form-control" ng-model="obj.title" placeholder="Enter Title" name="title" valid-alpha-numeric required>
+                <span class="errMsg" ng-show="CMSForm.title.$touched && CMSForm.title.$invalid">Title is required.</span>
+                </div>
+            </div>
+            <div class="form-group row">   
+                <div class="col-sm-3"> 
+                <label>Description</label>
+                </div>
+                <div class="col-sm-9">
+                  <textarea ckeditor="options" ng-model="obj.content" ready="onReady()"></textarea>
+                  <span class="errMsg" ng-if="descErr">Description is required.</span>
+                </div>
+            </div> 
+
+            <div class="form-group row">
+                <div class="col-sm-3">
+                <label for="example-text-input" class="col-2 col-form-label">Keyword </label>
+                </div>
+                <div class="col-sm-9">
+                    <input class="form-control" type="text" name="keyword" ng-model='obj.seoTitle' minlength="4"  placeholder="Keyword" required>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-sm-3">
+                <label for="example-text-input" class="col-2 col-form-label">SEO Description</label>
+                </div>
+                <div class="col-sm-9">
+                    <textarea class="form-control" type="text" name="description" ng-model='obj.seoDescription' minlength="4"  placeholder="Description" required>
+                    </textarea>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="btn-right">
+                <center><button class="btn btn-primary" ng-click="submit(obj)" ng-disabled="CMSForm.$invalid">Submit</button></center>
+                </div>
+            </div>    
+            </div>
+    </form>
+    </div>
+    </div>
+    </div>
+ </section>
+    <!-- /.content -->
+</aside>
+</div>
+</div>
+</div>
+</div>
+
+<div class="loading_div" ng-show='obj.loading'>
+  <center><img class="loading_img" src="./../images/Eclipse.gif"></center>
+</div>
+
+<!-- /.right-side -->

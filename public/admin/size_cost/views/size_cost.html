@@ -1,0 +1,65 @@
+<div class="panel" ng-init="getSizeCost()">
+        <div class="panel-body">
+    
+            <div id="page-content-wrapper">
+                <div class="container-fluid">
+                    <form name="sizecostForm">
+                    <table id="example1" class="table table-bordered table-striped" show-filter="isFiltersVisible">
+                        <tr>
+                         <th>Frame Size</th>
+                         <th>Frame Cost</th>
+                         <th>Height UpTo</th>
+                         <th>Width UpTo</th>
+                         <th>Action</th>
+                        </tr>
+                        <tr ng-repeat="sizes in sizecost">
+                            <td ng-if = "!isEdit" data-title="'Frame Size'">{{sizes.frameSize}}</td>
+                            <td ng-if = "isEdit" data-title="'Frame Size'">
+                                <input type="text" name="frameSize" ng-model="sizes.frameSize" class="" valid-alpha required ng-maxlength="3" ng-minlength="2" disabled />
+                                <span class="erMsg" ng-show="sizecostForm.frameSize.$error.required">This Field is required.</span>
+                                <span class="erMsg" ng-if="sizecostForm.frameSize.$error.minlength && sizecostForm.frameSize.$dirty">Minimum length is 2!</span>
+                                <span class="erMsg" ng-if="sizecostForm.frameSize.$error.maxlength && sizecostForm.frameSize.$dirty">Maximum length is 3!</span>
+                            </td>
+                            <td ng-if = "!isEdit" data-title="'Frame Cost'">{{sizes.frameCost}}</td>
+                            <td ng-if = "isEdit" data-title="'Frame Size'">
+                                <input type="text" name="frameCost" ng-model="sizes.frameCost" class="" valid-number required ng-minlength="2" />
+                                <span class="erMsg" ng-show="sizecostForm.frameCost.$error.required">This Field is required.</span>
+                                <span class="erMsg" ng-if="sizecostForm.frameCost.$error.minlength && sizecostForm.frameCost.$dirty">Minimum length is 2!</span>
+                            </td>
+                            <td ng-if = "!isEdit" data-title="'Height UpTo'">{{sizes.upto.height}}</td>
+                            <td ng-if = "isEdit" data-title="'Frame Size'">
+                                <input type="text" name="height" ng-model="sizes.upto.height" class="" valid-number required ng-minlength="2" />
+                                <span class="erMsg" ng-show="sizecostForm.height.$error.required">This Field is required.</span>
+                                <span class="erMsg" ng-if="sizecostForm.height.$error.minlength && sizecostForm.height.$dirty">Minimum length is 2!</span>
+                            </td>
+                            <td ng-if = "!isEdit" data-title="'Width UpTo'">{{sizes.upto.width}}</td>
+                            <td ng-if = "isEdit" data-title="'Frame Size'">
+                                <input type="text" name="width" ng-model="sizes.upto.width" class="" valid-number required ng-minlength="2" />
+                                <span class="erMsg" ng-show="sizecostForm.width.$error.required">This Field is required.</span>
+                                <span class="erMsg" ng-if="sizecostForm.width.$error.minlength && sizecostForm.width.$dirty">Minimum length is 2!</span>
+                            </td>
+                            <td data-title="'Action'">
+                                <button ng-hide = "isEdit" ng-click = "isEdit = true" class="fa fa-pencil" aria-hidden="true" ></button>
+                                <button ng-disabled = "sizecostForm.$invalid" ng-show = "isEdit" ng-click = "updateSize(sizes)" class="fa fa-check" aria-hidden="true" ></button>
+                            </td>
+                        </tr>
+    
+                          <tr ng-show="!sizecost.length">
+                              <td class="text-center" colspan="11">
+                              <div class="alert alert-danger">
+                                  No Size & Cost Data Available
+                              </div>
+                              </td>
+                          </tr>
+                    </table>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    
+    <div class="loading_div" ng-show='obj.loading'>
+      <center><img class="loading_img" src="./../images/Eclipse.gif"></center>
+    </div>
+    

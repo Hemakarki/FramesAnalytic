@@ -1,0 +1,94 @@
+<div class="panel" ng-init="orderspage()">
+    <div class="panel-body">
+        <!-- RAHUL  CODE -->
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-9">
+                        <button class="btn btn-primary" ng-click="exportOrderCSV()">
+                            <i class="fa fa-floppy-o" aria-hidden="true"></i> Exports</button>
+                    </div>
+                    <div class="col-md-3">
+                        <span class="glyphicon glyphicon-search" style="color:purple"></span>
+                        <input ng-model="myobj.search" placeholder="Search for order no, email, name" my-Enter="orderspage('search')" style="width: 140px;"
+                        />
+                    </div>
+
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-lg-4 ">
+
+                        <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="myobj.startDate" is-open="popup1.opened"
+                            datepicker-options="dateOptions" close-text="Close" placeholder="Start Date" alt-input-formats="altInputFormats"
+                            ng-click="open1()" minDate="dateOptions.minDate" readonly/>
+
+                    </div>
+                    <div class="col-lg-4 ">
+
+                        <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="myobj.endDate" is-open="popup2.opened"
+                            datepicker-options="dateOptions" close-text="Close" placeholder="End Date" alt-input-formats="altInputFormats"
+                            ng-click="open2()" minDate="dateOptions.minDate" readonly/>
+                    </div>
+                    <div class="col-lg-3 ">
+                        <button type="button" class="btn btn-info" ng-click="orderspage()">Search By Date</button>
+                    </div>
+                </div>
+                <br>
+                <table id="example1" class="table table-bordered" ng-table="tableParams" show-filter="isFiltersVisible">
+                    <tr ng-repeat="user in $data track by $index" ng-class="{'bg_completed': user.orderStatus == 'Complete'}">
+
+                        <td data-title="'Order No'" sortable="'orderNumber'" filter="{orderNumber: 'text'}">
+                            <a data-toggle="tooltip" title="View Details" ui-sref="admin.orderInfo({orderId:user._id})" style="color: green;">{{user.orderNumber}}</a>
+                        </td>
+
+                        <td data-title="'Email'" sortable="'email'" filter="{email:'text'}">
+                            {{user.userData.email}}
+                        </td>
+
+                        <td data-title="'Name'" filter="{name:'text'}">
+                            {{user.userData.billingAddress.firstName}} {{user.userData.billingAddress.lastName}}
+                        </td>
+
+                        <td data-title="'Order Date'" sortable="'createdOn'" filter="{createdOn:'text'}">
+                            <!-- {{user.createdOn | date:'dd/MM/yyyy @ h:mma'}} -->
+                            {{user.createdOn | date:'dd/MM/yyyy'}}
+                        </td>
+
+                        <td data-title="'Total'" sortable="'totalPrice'" filter="{totalPrice:'text'}" ng-disabled="user.orderStatus=='Complete'">{{user.totalPrice}}</td>
+                        <td data-title="'Order Status'">{{user.orderStatus}}
+                            <select ng-options="tag.label as tag.label for tag in orderStatusArray" ng-model="user.orderStatus" ng-change="saveOrderStatus(user)"
+                                ng-disabled="user.orderStatus=='Complete'" ;>
+                                <option value="">Select</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr ng-show="!$data.length">
+                        <td class="text-center" colspan="11">
+                            <div class="alert alert-danger">
+                                No Orders Available
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal" id="delete" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-body">
+                <p>
+                    Are You Sure!!!!!! You want to Delete
+                </p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="goavailable()" data-toggle="modal">Yes</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">CANCEL</button>
+            </div>
+        </div>
+    </div>
+</div>

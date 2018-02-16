@@ -1,0 +1,159 @@
+<ol class="breadcrumb">
+    <li><a ui-sref="admin.dashboard">Dashboard</a></li>
+    <li><a ui-sref="admin.listFrames">Frames</a></li>
+    <li class="active"><a ui-sref="admin.addFrames">Add Frame</a></li>
+</ol>
+<div class="container" ng-init="getFrameValues()">
+    <div class="row">
+        <div class="col-md-10">
+            <div class="panel panel-login">
+                <div class="panel-heading">
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <form id="addFramesForm" name="addFramesForm" style="display: block;" class="form-horizontal" role="form">
+                                <div class="form-group row">
+                                    <label for="example-text-input" class="col-2 col-form-label">Name</label>
+                                    <div class="col-10">
+                                        <input class="form-control" tabindex="1" type="text" name="frameName" ng-model='frame.frameName' minlength="4" ng-pattern="/^[^]{4,20}$/" placeholder="Name" required>
+                                        <span style="color: #a94442;" ng-show="addFramesForm.frameName.$dirty && addFramesForm.frameName.$invalid">
+                                          <span ng-show="addFramesForm.frameName.$error.required">This field is required.</span>
+                                          <span ng-show="addFramesForm.frameName.$invalid"> Field must be 4 to 20 characters long , Special Characters are not allow.</span>
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label for="example-color-input" class="col-2 col-form-label">Colour</label>
+                                    <div class="row">
+                                        <div class="col-md-10">
+                                            <select class="form-control" name="frameColor" ng-model="frame.frameColor">
+                                              <option ng-repeat="list in colors">{{list.frameColor}}</option>
+                                            </select>
+                                            <span style="color: #a94442;" ng-show="addFramesForm.frameColor.$dirty">
+                                              <span ng-show="addFramesForm.frameColor.$error.required">This field is required</span>
+                                            </span>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <i class="fa fa-plus" data-toggle="modal" data-target="#colourModel" aria-hidden="true" style="cursor: pointer;"><b> Add Colour</b></i>
+                                            <i class="fa fa-minus" aria-hidden="true" ng-click = "deleteColor(frame.frameColor)"><b> Delete Colour</b></i>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class = "form-group row">
+                                  <label for="example-size-input" class="col-2 col-form-label">Size</label>
+                                    <select class="form-control" name="frameSize" ng-model="frame.frameSize">
+                                      <option ng-repeat="size in frameSizes">{{size.frameSize}}</option>
+                                    </select>
+                                    <span style="color: #a94442;" ng-show="addFramesForm.frameSize.$dirty">
+                                      <span ng-show="addFramesForm.frameSize.$error.required">This field is required</span>
+                                    </span>
+                                </div>
+
+
+                                <div class="form-group row">
+                                    <label for="example-email-input" class="col-2 col-form-label">Summary</label>
+                                    <div class="col-10">
+                                        <input type="text" class="form-control" tabindex="1" name="frameDescription" ng-model='frame.frameDescription' ng-pattern="/^[^]{10,50}$/" placeholder="Summary" required />
+                                        <span style="color: #a94442;" ng-show="addFramesForm.frameDescription.$dirty && addFramesForm.frameDescription.$invalid">
+                                          <span ng-show="addFramesForm.frameDescription.$error.required">This field is required</span>
+                                          <span ng-show="addFramesForm.frameDescription.$invalid">Field must be 10 to 50 characters long , Special Characters are not allow.</span>
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label for="example-url-input" name="frameOverview" class="col-2 col-form-label">Description</label>
+                                    <div class="col-10">
+                                        <textarea class="form-control" tabindex="1" name="frameOverview" rows="3" ng-model="frame.frameOverview" ng-pattern="/^[^]{20,1000}$/" placeholder="Description" required></textarea>
+                                        <span style="color: #a94442;" ng-show="addFramesForm.frameOverview.$dirty && addFramesForm.frameOverview.$invalid">
+                                          <span ng-show="addFramesForm.frameOverview.$error.required">This field is required.</span>
+                                          <span ng-show="addFramesForm.frameOverview.$invalid">Field must be at least 20 characters long.</span>
+                                        </span>
+                                    </div>
+                                </div>
+
+
+                                <div class="form-group row">
+                                    <!-- <label for="example-file-input" class="col-2 col-form-label">Image</label> -->
+
+                                    <div class="col-md-6">
+                                        <label for="files">Select only 4 Primary Images</label>
+                                        <input style = "color:transparent;" ng-if = "!frame.frameImage" type="file" color:transparent; ng-model="frame.frameImage" accept="image/*" multiple base-sixty-four-input />
+                                        
+                                        <span ng-if="!validImage" style="color: #a94442;">Not a valid image</span>
+                                        <br/>
+                                        <span ng-if="!validImage" style="color: #3c763d;">Valid Image Formats are - jpg/png</span>
+                                        <span ng-repeat="bases in frame.frameImage">
+                                          <img ng-if = "frame.frameImage.length == 4" ng-src="data:image/png;base64, {{bases.base64}}" alt="No Image" class="img-thumbnail" width="100px"/>
+                                          <select ng-if = "frame.frameImage.length == 4" ng-model="listArray1" ng-change="selectSize($index, listArray1)">
+                                            <option ng-repeat="size in listArray"  ng-disabled="size.isDisabled">{{size.name}}</option>
+                                          </select>  
+                                        </span>
+                                        <span ng-if = "frame.frameImage.length > 4" style = "color : red">
+                                                Please select only 4 Images for Primary.
+                                        </span>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="files">Select only 3 Secondary Images</label>
+                                        <input style = "color:transparent;" ng-if = "!frame.frameSecImg" type="file" ng-model="frame.frameSecImg" accept="image/*" multiple base-sixty-four-input />
+                                        <span ng-if="!validImage" style="color: #a94442;">Not a valid image</span>
+                                        <br/>
+                                        <span ng-if="!validImage" style="color: #3c763d;">Valid Image Formats are - jpg/png</span>
+                                        <span ng-repeat="bases in frame.frameSecImg">
+                                            <img ng-if = "frame.frameSecImg.length == 3" ng-src="data:image/png;base64, {{bases.base64}}" alt="No Image" class="img-thumbnail" width="100px"/>
+                                        </span>
+                                        <span ng-if = "frame.frameSecImg.length > 4" style = "color : red">
+                                                Please select only 4 Images for Secondary.
+                                                <input style = "color:transparent;"  type="file" ng-model="frame.frameSecImg" accept="image/*" multiple base-sixty-four-input />
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="button_submit col-sm-6 col-sm-offset-5">
+
+                                            <button class="btn btn-warning" type="button" ui-sref="admin.listFrames">Cancel</button>
+                                            <button type="button" class="btn btn-primary" ng-disabled="addFramesForm.$invalid || frame.frameImage.length > 4 || frame.frameSecImg.length > 3 || !validImage" ng-click="addFrame(frame)" tabindex="4" class="form-control btn btn-primary">Add Frame</button>
+                                            <!-- background-color: #337ab7 !important; -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="colourModel" role="dialog">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Add Colour</h4>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group row">
+                        <label for="example-text-input" class="col-2 col-form-label">Colour Name</label>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <input class="form-control" tabindex="1" type="text" name="newFrameColor" placeholder="Add New Colour Name" ng-model='newFrameColor'><br/>
+                            </div>
+                            <center><button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="addNewColor(newFrameColor)">Add</button></center>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

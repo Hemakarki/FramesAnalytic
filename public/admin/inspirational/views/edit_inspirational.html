@@ -1,0 +1,60 @@
+<aside class="right-side" ng-init="getInspirationalData()">
+    <ol class="breadcrumb">
+    <li><a ui-sref="admin.dashboard">Dashboard</a></li>
+    <li class="active"><a ui-sref="admin.edit_inspirational">Inspirational</a></li>
+    </ol>
+    <!-- Main content -->
+   <div class="container">
+    <div class="row">
+        <div class="col-md-10">
+           <div class="panel panel-login">
+                <div class="panel-heading">
+                </div>
+         <div class="panel-body">
+                <div class="row">
+                <div class="col-lg-12">
+       <form enctype="multipart/form-data" method="POST" role="form" name="editInspirationalForm" >
+            <div class="box-body">
+            <div class="form-group row">
+             <div class="col-sm-2">
+                <label>Title</label>
+             </div> 
+            <div class="col-sm-6">  
+                <input type="text" class="form-control" ng-model="inspirational.name" placeholder="Enter Title" name="title" valid-alpha-numeric required>
+                <span class="errMsg" ng-show="editInspirationalForm.title.$touched && editInspirationalForm.title.$invalid">Title is required.</span>
+            </div>
+            </div>
+            <div class="form-group row">
+             <div class="col-sm-2">
+                <label>Photo Upload</label>
+             </div>
+              <div class="col-sm-6">   
+                 <div class="picture-container">
+                    <div class="picture">
+                        <input  type="file" style="color:transparent;" ng-model="inspirational.editImage" accept="image/*" base-sixty-four-input/>
+                        <img ng-if = "!inspirational.editImage" ng-src="{{inspirational.image}}" alt="No Image" class="img-thumbnail" width="200px"></img>
+                        <img ng-if = "inspirational.editImage" ng-src="data:image/png;base64, {{inspirational.editImage.base64}}" alt="No Image" class="img-thumbnail" width="200px"></img>
+                        <span ng-if="!validImage" style="color: #a94442;">Not a valid image</span>
+                        <br/>
+                        <span ng-if="!validImage" style="color: #3c763d;">Valid Image Formats are - jpg/png</span>
+                    </div>
+                </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="btn-right">
+                <button class="btn btn-primary" ng-click="updateInspirationData(inspirational)" ng-disabled="editInspirationalForm.$invalid">Submit</button>
+                </div>
+            </div>
+            </div>
+    </form>
+    </div>
+    </div>
+    </div>
+    </div>
+    </div>
+    </div>
+    </div>
+    <!-- /.content -->
+</aside>
+<!-- /.right-side -->

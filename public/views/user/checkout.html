@@ -1,0 +1,488 @@
+<!--free shipping-->
+<section class="free_shipping secure_checkout">
+    <i class="zmdi zmdi-lock zmdi-hc-fw"></i> SECURE CHECKOUT</section>
+<!--free shipping-->
+<div class="checkout_steps">
+    <ul ng-show="sections.checkoutLogin">
+        <li class="active">
+            <span class="cirle"></span>
+            <span class="text">1 Login</span>
+        </li>
+        <li>
+            <span class="cirle"></span>
+            <span class="text">2 Your details</span>
+        </li>
+        <li>
+            <span class="cirle"></span>
+            <span class="text">3 Payment</span>
+        </li>
+    </ul>
+    <ul ng-show="sections.accountDetails">
+        <li>
+            <span class="cirle"></span>
+            <span class="text">1 Login</span>
+        </li>
+        <li class="active">
+            <span class="cirle"></span>
+            <span class="text">2 Your details</span>
+        </li>
+        <li>
+            <span class="cirle"></span>
+            <span class="text">3 Payment</span>
+        </li>
+    </ul>
+    <ul ng-show="sections.payment">
+        <li>
+            <span class="cirle"></span>
+            <span class="text">1 Login</span>
+        </li>
+        <li>
+            <span class="cirle"></span>
+            <span class="text">2 Your details</span>
+        </li>
+        <li class="active">
+            <span class="cirle"></span>
+            <span class="text">3 Payment</span>
+        </li>
+    </ul>
+</div>
+
+<!--checkout process-->
+<section class="checkout_process" ng-init="getCartData()">
+    <div class="container">
+        <div class="row">
+
+            <!-- Checkout login -->
+
+            <div ng-show="sections.checkoutLogin" class="col-md-4 col-md-offset-1  checkoutform">
+                <div class="main_title">Checkout login.</div>
+                <form name="loginForm" id="login_form">
+                    <div class="item_list">
+                        <input type="email" name="username" class="md-input" ng-model="vm.credentials.email" placeholder="Email" ng-pattern="/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/"
+                            required>
+                        <span style="color:rgb(175, 65, 65)" ng-show="showerror==true || loginForm.username.$error.required && loginForm.username.$touched">Email cannot left blank</span>
+                        <br>
+                        <span style="color:rgb(175, 65, 65)" ng-show="loginForm.username.$error.pattern">Enter Valid Character</span>
+                    </div>
+                    <div class="item_list">
+                        <input type="password" name="password" class="md-input" ng-model="vm.credentials.password" placeholder="Password" required>
+                        <span style="color:rgb(175, 65, 65)" ng-show="showerror==true || loginForm.password.$error.required && loginForm.password.$touched">Password cannot left blank</span>
+                    </div>
+
+                    <button ng-if="loginForm.$invalid" class="red_button button large" type="button" ng-click="showerror=true;">
+                        <i class="zmdi zmdi-lock zmdi-hc-fw"></i> LOGIN</button>
+                    <button ng-if="!loginForm.$invalid" class="red_button button large" type="button" ng-click="Signin(vm)">
+                        <i class="zmdi zmdi-lock zmdi-hc-fw"></i> LOGIN</button>
+
+                        <div class="item_list cotrols">
+                                <a class="forget_password" ng-click = "showCreateUser()" style="cursor: pointer;" >Create an account</a>
+                                <a class="forget_password" ui-sref="forgot-password" style="cursor: pointer;">Forgotton password?</a>
+                            </div>
+                    <button class="grey_btn button large" ng-click="guestCheckout()">
+                        <i class="zmdi zmdi-lock zmdi-hc-fw"></i> GUEST CHECKOUT</button>
+                </form>
+            </div>
+
+
+            <!-- Your account details -->
+            <div ng-show="sections.accountDetails" class="col-md-4 col-md-offset-1 checkoutform">
+                <span ng-if = loggedIn ng-init="showaddress()"></span>
+                <div class="main_title  main_title_small">Your account details.</div>
+                <form name="account_form" id="account_form">
+                    <div>
+                        <label class="sub_title">Billing Address</label>
+                        <hr>
+                        <div class="item_list">
+                            <input type="text" placeholder="First name" ng-model="Billing.firstName" name="firstname" ng-pattern="/^[a-z ,.'-]+$/i" ng-minlength="3"
+                                ng-maxlength="20" maxlength="21" required>
+                            <span style="color:rgb(214, 95, 95);" ng-show="account_form.firstname.$error.required && account_form.firstname.$touched">This field is mandatory</span>
+                            <span style="color:rgb(185, 73, 73);" ng-show="account_form.firstname.$error.pattern">Enter Valid Character</span>
+                            <br>
+                            <span style="color:rgb(175, 65, 65) " ng-show="account_form.firstname.$error.maxlength && account_form.firstname.$dirty">First name maximum length exceeds</span>
+                        </div>
+                        <div class="item_list">
+                            <input type="text" placeholder="Last name" ng-model="Billing.lastName " ng-pattern="/^[a-z ,.'-]+$/i" ng-minlength="3" ng-maxlength="20"
+                                maxlength="21" required name="lastname">
+                            <span style="color:rgb(175, 65, 65)" ng-show="account_form.lastname.$error.required && account_form.lastname.$touched">This field is mandatory</span>
+                            <span style="color:rgb(175, 65, 65)" ng-show="account_form.lastname.$error.pattern">Enter Valid Character</span>
+                            <br>
+                            <span style="color:rgb(175, 65, 65) " ng-show="account_form.lastname.$error.maxlength && account_form.lastname.$dirty">First name maximum length exceeds</span>
+                        </div>
+                        <div class="item_list">
+                            <input type="text" placeholder="Address line 1" ng-model="Billing.address1" name="address" google-billing billing="true"
+                                required>
+                            <span style="color:rgb(175, 65, 65) " ng-show="account_form.address.$error.required && account_form.address.$touched">This field is mendatory</span>
+                        </div>
+                        <div class="item_list">
+                            <input type="text" placeholder="Address line 2 (Optional)" ng-model="Billing.address2">
+                        </div>
+                        <div class="item_list">
+                            <input type="text" placeholder="Suburb" ng-model="Billing.city" name="city" required>
+                            <span style="color:rgb(175, 65, 65) " ng-show="account_form.city.$error.required && account_form.city.$touched">This field is mendatory</span>
+                        </div>
+                        <div class="row">
+                            <div class="item_list col-md-6 col-xs-6">
+                                <input type="text" placeholder="Postcode" ng-model="Billing.zipCode" disabled="">
+                            </div>
+                            <div class="item_list col-md-6 col-xs-6">
+                                <input type="text" placeholder="State" ng-model="Billing.state" name="state" required>
+                                <span style="color:rgb(175, 65, 65) " ng-show="account_form.state.$error.required && account_form.state.$touched">This field is mendatory</span>
+                            </div>
+                        </div>
+                        <div ng-if="!loggedIn" class="item_list">
+                            <input type="email" placeholder="Email" name="email" ng-model="Billing.email" ng-pattern="/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/"
+                                required>
+                            <span style="color:rgb(175, 65, 65)" ng-show="account_form.email.$error.required && account_form.email.$touched">This field is mendatory </span>
+                            <span style="color:rgb(175, 65, 65)" ng-show="account_form.email.$error.pattern">Enter Valid Character</span>
+                        </div>
+                        <div ng-if="!loggedIn && isUser" class="item_list">
+                            <input type="password" placeholder="Password (at least 6 character)" ng-model="Billing.password" ng-minlength="5" ng-maxlength="20"
+                                maxlength="21" name="password" required>
+                            <div class="validationError" ng-show="account_form.password.$error.minlength">
+                                <span style="color:rgb(175, 65, 65) ">Password entered is too short (Minimum of 5 characters)</span>
+                            </div>
+                            <div class="validationError" ng-show="account_form.password.$error.maxlength && account_form.password.$dirty">
+                                <span style="color:rgb(175, 65, 65) ">password maximum length exceeds</span>
+                            </div>
+                        </div>
+                        <div ng-if="!loggedIn && isUser" class="item_list">
+                            <input type="password" placeholder="Confirm password" ng-model="Billing.confirmPassword" required name="confirmPassword"
+                                id="confirmPassword" ng-pattern="Billing.password">
+                            <div class="validationError" ng-messages="account_form.confirmPassword.$error" ng-show = "account_form.confirmPassword.$error.pattern && (!account_form.confirmPassword.$pristine)"
+                            role="alert ">
+                                <span style="color:rgb(175, 65, 65) " ng-message="pattern">password do not match</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div ng-if="!loggedIn" class="compare">
+                        <input id="compare" type="checkbox" ng-model="isUser" ng-change="changeUser(isUser)">
+                        <label for="compare">Show the password field?</label>
+                    </div>
+
+                    <div ng-if="sameAs">
+                        <br/>
+                        <br/>
+
+                        <label class="sub_title">Shipping Address</label>
+                        <hr>
+                        <div class="item_list">
+                            <input type="text" placeholder="First name" ng-model="Shipping.firstName" name="sfirstname" ng-pattern="/^[a-z ,.'-]+$/i"
+                                ng-minlength="3" ng-maxlength="20" maxlength="21" required>
+                            <span style="color:rgb(175, 65, 65)" ng-show="account_form.sfirstname.$error.required && account_form.sfirstname.$touched">This field is mendatory</span>
+                            <span style="color:rgb(175, 65, 65)" ng-show="account_form.sfirstname.$error.pattern">Enter Valid Character</span>
+                            <br>
+                            <span style="color:rgb(175, 65, 65) " ng-show="account_form.sfirstname.$error.maxlength && account_form.sfirstname.$dirty">First name maximum length exceeds</span>
+                        </div>
+                        <div class="item_list">
+                            <input type="text" placeholder="Last name" ng-model="Shipping.lastName " ng-pattern="/^[a-z ,.'-]+$/i" ng-minlength="3" ng-maxlength="20"
+                                maxlength="21" required name="slastname">
+                            <span style="color:rgb(175, 65, 65)" ng-show="account_form.slastname.$error.required && account_form.slastname.$touched">This field is mendatory</span>
+                            <span style="color:rgb(175, 65, 65)" ng-show="account_form.slastname.$error.pattern">Enter Valid Character</span>
+                            <br>
+                            <span style="color:rgb(175, 65, 65) " ng-show="account_form.slastname.$error.maxlength && account_form.slastname.$dirty">First name maximum length exceeds</span>
+                        </div>
+                        <div class="item_list">
+                            <input type="text" placeholder="Address line 1" ng-model="Shipping.address1" name="saddress" google-shipping shipping="true"
+                                required>
+                            <span style="color:rgb(175, 65, 65)" ng-show="account_form.saddress.$error.required && account_form.saddress.$touched">This field is mandatory</span>
+                        </div>
+                        <div class="item_list">
+                            <input type="text" placeholder="Address line 2 (Optional)" ng-model="Shipping.address2">
+                        </div>
+                        <div class="item_list">
+                            <input type="text" placeholder="Suburb" ng-model="Shipping.city" required name="scity">
+                            <span style="color:rgb(175, 65, 65)" ng-show="account_form.scity.$error.required && account_form.scity.$touched">This field is mandatory</span>
+                        </div>
+                        <div class="row">
+                            <div class="item_list col-md-6 col-xs-6">
+                                <input type="text" placeholder="Postcode" ng-model="Shipping.zipCode" disabled />
+                            </div>
+                            <div class="item_list col-md-6 col-xs-6">
+                                <input type="text" placeholder="State" ng-model="Shipping.state" name="state" required>
+                                <span style="color:rgb(175, 65, 65)" ng-show="account_form.sstate.$error.required && account_form.sstate.$touched">This field is mendatory</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="compare">
+                        <input id="compare" type="checkbox" ng-model="isSame" value="false" ng-change="isSameAddress(isSame)">
+                        <label for="compare">Ship to a different address?</label>
+                    </div>
+                    <br/>
+
+
+
+                    <!-- <span ng-show="account_form.$invalid"><button ng-if="!loggedIn" class="red_button button large"  ng-click="showerror=true;"><i class="zmdi zmdi-lock zmdi-hc-fw"></i> CREATE ACCOUNT</button></span> -->
+
+
+
+                    <span ng-if="!loggedIn">
+                        <button class="red_button button large" ng-show="!isUser" ng-disabled="account_form.$invalid" ng-click="createGuestAccount(Billing, Shipping)">
+                            <i class="zmdi zmdi-lock zmdi-hc-fw"></i> CREATE GUEST ACCOUNT</button>
+                    </span>
+                    <span ng-if="!loggedIn">
+                        <button class="red_button button large" ng-show="isUser" ng-disabled="account_form.$invalid" ng-click="createUserAccount(Billing, Shipping)">
+                            <i class="zmdi zmdi-lock zmdi-hc-fw"></i> CREATE USER ACCOUNT</button>
+                    </span>
+
+                    <span ng-if="loggedIn">
+                        <button class="red_button button large" ng-click="updateAddress(Billing, Shipping)">
+                            <i class="zmdi zmdi-lock zmdi-hc-fw"></i> CONTINUE</button>
+                    </span>
+                </form>
+            </div>
+
+
+
+
+            <!-- Make a payment -->
+
+            <div ng-show="sections.payment" class="col-md-4 col-md-offset-1">
+                <div class="main_title">Make a payment.</div>
+                <div class="panel-group" id="faqAccordion">
+
+                    <div class="panel panel-default">
+                        <div ng-click = "stripeSelect()" class="panel-heading accordion-toggle question-toggle" data-toggle="collapse" data-parent="#faqAccordion" data-target="#question15">
+                            <h4 class="panel-title">
+                                <a class="ing">
+                                    <span>Credit card</span>
+                                    <figure>
+                                        <img src="views/styles/images/credit_card.png" width="71" height="21" alt="cc" />
+                                    </figure>
+                                </a>
+                            </h4>
+                        </div>
+                        <div id="question15" class="panel-collapse collapse in">
+                            <div class="panel-body  checkoutform">
+                                <form id="payment_form" name = "payment_form">
+                                    <div class="item_list">
+                                        <input id="card-num" valid-number name="card_num" type="text" placeholder="Card number" autofocus="autofocus" ng-model="cardDetails.number"
+                                            maxlength="16" required />
+                                        <span style="color:rgb(175, 65, 65)" name="card_num" ng-show="payment_form.card_num.$error.required && payment_form.card_num.$touched">Card number cannot left blank</span>
+                                    </div>
+                                    <div class="item_list">
+                                        <input type="text" name="card_name" valid-alpha placeholder="Name on card" autofocus="autofocus" ng-model="cardDetails.name"
+                                            required />
+                                        <span style="color:rgb(175, 65, 65)" ng-show="payment_form.card_name.$error.required && payment_form.card_name.$touched">This field cannot left blank</span>
+                                    </div>
+                                    <div class="row" ng-init="getMonthYear()">
+                                        <div class="item_list col-md-4 col-xs-4">
+                                            <div class="select_wrapper">
+                                                <select ng-model="cardDetails.exp_month" ng-options="month as month.monthId for month in months"></select>
+                                            </div>
+                                        </div>
+
+                                        <div class="item_list col-md-4 col-xs-4">
+                                            <div class="select_wrapper">
+                                                <select ng-model="cardDetails.exp_year" ng-options="year as year for year in years"></select>
+                                            </div>
+                                        </div>
+                                        <div class="item_list col-md-4 col-xs-4">
+                                            <input class="cvv_input" type="text" valid-number placeholder="CVV" ng-model="cardDetails.cvc" maxlength="3" required />
+                                            <span class="cvv_label">WHAT’S THIS?</span>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="panel panel-default ">
+                        <div ng-click = "paypalSelect()" class="panel-heading accordion-toggle question-toggle collapsed" data-toggle="collapse" data-parent="#faqAccordion"
+                            data-target="#question17">
+                            <h4 class="panel-title">
+                                <a class="ing">
+                                    <span>PayPal</span>
+                                    <figure>
+                                        <img src="images/paypal.png" width="71" height="21" alt="paypal" />
+                                    </figure>
+                                </a>
+                            </h4>
+                        </div>
+                        <div id="question17" class="panel-collapse collapse">
+                            <div class="panel-body">
+                                <div id="myContainerElement" style="text-align: center;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                </span>
+                <span ng-if = "buttonShow">
+                    <button ng-disabled = "payment_form.$invalid" class="red_button button large complete_payment" type="button" ng-click="payNow(cardDetails)">
+                        <i class="zmdi zmdi-lock zmdi-hc-fw"></i>COMPLETE PAYMENT</button>
+                </span>
+            </div>
+
+
+
+
+            <!-- Thanks for your order -->
+
+
+
+
+            <div ng-show="sections.confirm" class="col-md-4 col-md-offset-1 confirm_summary">
+                <div class="main_title  main_title_small">Thanks for your order.</div>
+                <p>Order confirmation text. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh
+                    euismod tincidunt ut laoreet dolore magna aliquam</p>
+                <div class="your_order">Order summary:</div>
+                <div class="cart_listing no_border">
+                    <ul>
+                        <li>
+                            <label class="title">Order number</label>
+                            <label class="value">{{ordersData.orderNumber}}</label>
+                        </li>
+                        <li>
+                            <label class="title">Order date</label>
+                            <label class="value">{{ordersData.createdOn | date : "dd.MM.y"}}</label>
+                        </li>
+                        <li>
+                            <label class="title">Estimated delivery</label>
+                            <label class="value">{{ordrDelvryDate | date : "dd.MM.y"}}</label>
+                        </li>
+                        <li>
+                            <label class="title">Order total</label>
+                            <label class="value">${{ordersData.totalPrice}}</label>
+                        </li>
+                    </ul>
+                </div>
+                <div class="cart_listing">
+                    <div class="sub_title">Shipping address:</div>
+                    <ul>
+                        <li>
+                            <label class="title">{{Billing.firstName}} {{Billing.lastName}}
+                                <br>{{Billing.address1}}
+                                <br>{{Billing.zipCode}}</label>
+                        </li>
+
+                    </ul>
+                </div>
+            </div>
+            <!-- Your order  -->
+
+
+            <div class="col-md-5 col-md-offset-1 login_right" ng-init="getETA()">
+                <div class="your_order">Your order:</div>
+                <div class="row" ng-repeat="data in cartData.products">
+                    <div class="clearfix">
+                        <div class="col-md-8">
+                            <div class="cart_listing no_border">
+                                <div class="sub_title">Frame & artwork:</div>
+                                <ul>
+                                    <li>
+                                        <label>{{data.frameData.frameName}}</label>
+                                    </li>
+                                    <li ng-hide = "data.artType == 'Digital'">
+                                        <label>{{data.artType}}- Mailin Type: {{data.mailinType}}</label>
+                                    </li>
+                                    <li>
+                                        <label>Approx artwork size {{data.artData.artSizeCatagory.artSize.width | number : 0}}cm
+                                            x {{data.artData.artSizeCatagory.artSize.height | number : 0}}cm</label>
+                                    </li>
+                                    <li>
+                                        <label>Approx artwork size {{data.artData.artSizeCatagory.artSize.width + 2.7 | number :
+                                            0}}cm x {{data.artData.artSizeCatagory.artSize.height + 2.7 | number : 0}}cm</label>
+                                    </li>
+
+                                </ul>
+                                <!-- <div ng-if="!sections.confirm" class="action_button action_button2">
+                                    <a class="btn" ui-sref="user.framePreview({foo : data.frameData._id})">Edit</a>
+                           <a class="btn" ng-click = "deleteProductValue(data._id)">Remove</a>
+                                </div> -->
+                            </div>
+                        </div>
+                        <div class="col-md-4" ng-repeat="image in data.frameData.frameImages">
+                            <div class="thumbnail">
+                                <preview-canvas-check ng-if="image.imageType == 'PORTRAIT'" ng-model="matData" productimage="{{data.productImage}}" frameimage="{{image.imgPath}}"
+                                    frameid="{{data._id}}" artsize="{{data.imageSizeCost.frameSize}}" matcolor="{{data.matData.color}}"
+                                    productw="{{data.artData.artSizeCatagory.artSize.width | number : 0}}" producth="{{data.artData.artSizeCatagory.artSize.height | number : 0}}">
+                                    <canvas ng-attr-id="{{data._id}}" width="140" height="144" />
+                                </preview-canvas-check>
+                             </div>
+                        </div>
+                    </div>
+                    <div class="cart_listing middle">
+                        <div class="col-md-12 ">
+                            <ul>
+                                <li>
+                                    <label class="title">{{frameSizesArray[data.imageSizeCost.frameSize]}} Frame</label>
+                                    <label class="value">${{data.itemPrice - data.matData.matPrice}}</label>
+                                </li>
+                                <li ng-if="data.matData.matPrice">
+                                    <label class="title">Custom options</label>
+                                    <label class="value">${{data.matData.matPrice}}</label>
+                                </li>
+                                <li>
+                                    <label class="title">Quantity</label>
+                                    <label class="value">
+                                        <input type="text" ng-model="data.quantity" placeholder="1" readonly>
+                                    </label>
+                                </li>
+                                <li class="subtotal">
+                                    <label class="title">Subtotal</label>
+                                    <label ng-if="!data.matData.matPrice" class="value">${{data.itemPrice * data.quantity}}</label>
+                                    <label ng-if="data.matData.matPrice" class="value">${{data.itemPrice * data.quantity}}</label>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="total-price">
+
+                    <div class="cart_listing middle">                        
+                        <ul>
+                            <li ng-if = "cartData.isPromo">
+                                <label class="title" style="color:rgb(199, 55, 55);">Promo Code Already Applied.</label>
+                                <label class="value">- $ {{discount}}</label>
+                            </li>
+
+
+                            <li>
+                                    <label class="title">Delivery (standard)</label>
+                                    <label class="value red_text bold">FREE</label>
+                                </li>
+
+                            <li>
+                                <label class="title">Express delivery +$XX<br>Available for digital prints only</label>
+                                <label class="value underline_text">
+                                <a href="">SELECT</a>
+                                </label>
+                            </li>
+                            
+
+
+                            <li>
+                                <label class="title">Estimated delivery date</label>
+                                <label class="value">{{estimatedDate | date : "dd.MM.y"}}</label>
+                            </li>
+                        </ul>
+                        <!-- <div class="clearfix">
+                            <label class="title pull-left">Delivery (standard)</label>
+                            <label class="value red_text bold pull-right">FREE</label>
+                        </div> -->
+                    </div>
+
+                    <div class="cart_listing total_ammount">
+                        <ul>
+                            <li>
+                                <label class="title">Total</label>
+                                <label class="value">${{cartData.totalPrice}}</label>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+</section>
+<!--checkout process-->
+<!--contacting ends-->
+
+<div class="loading_div" ng-show=obj.loading>
+    <center>
+        <img class="loading_img" src="./../images/Eclipse.gif">
+    </center>
+</div>

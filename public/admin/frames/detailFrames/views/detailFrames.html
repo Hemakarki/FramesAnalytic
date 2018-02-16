@@ -1,0 +1,31 @@
+<ol class="breadcrumb">
+    <li><a ui-sref="admin.dashboard">Dashboard</a></li>
+    <li><a ui-sref="admin.listFrames">Frames</a></li>
+    <li class="active">Details</li>
+</ol>
+<div ng-init="detailFrames()">
+  <div ng-repeat="frames in frameDeatils">
+    <div class="item col-xs-4 col-lg-4" ng-repeat = "images in frames.frameImages">
+      <div class="thumbnail" ng-if = "images.isPrimary">
+        <img style="width: 300px;height:300px;" class="group list-group-image" src="/images/frames/{{images.imageType}}/{{images.imgPath}}" alt="No Image" />
+        <div class="caption">
+          <h4 class="group inner list-group-item-heading" style="color: #C5452A;"><b>{{frames.frameName}}</b></h4>
+          <p class="group inner list-group-item-text" style="color: #CA6751;">{{frames.frameDescription}}</p>
+          <hr/>
+          <div class="row">
+            <div class="col-xs-12 col-md-12">
+                <p class="lead">{{images.imageType}}</p>
+                <p class="lead">{{frames.frameOverview}}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="item  col-xs-3 col-lg-3" ng-repeat = "images in frames.frameImages">
+        <div class="thumbnail"  ng-if = "images.isPrimary == false">
+            <img style="width: 200px;height:200px;" class="group list-group-image" src="/images/frames/SECONDRY/{{images.imgPath}}" alt="No Image" />
+            <p class="lead">{{images.imageType}}</p>
+        </div>
+    </div>
+  </div>
+</div>

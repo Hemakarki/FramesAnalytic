@@ -1,0 +1,131 @@
+<!--free shipping-->
+<section class="free_shipping">
+   FREE SHIPPING AUSTRALIA-WIDE
+</section>
+<!--free shipping-->
+
+
+<!--inner page banner starts-->
+<section class="main_banner framing_banner">
+   <img class="desktop_bg" src="/views/styles/images/start_framing_bg.jpg" alt="banner" width="1280" height="464">
+   <img class="desktop_bg_mb" src="/views/styles/images/main_banner_mob.jpg" alt="banner" width="479" height="775">
+   <div class="container">
+       <p>Let’s get started.</p>
+   </div>
+   <div class="image_uploading_steps inside_banner">
+   <ul>
+      <li style="cursor: pointer;" class="active" ui-sref = "user.framesType">
+         <span class="cirle"></span>
+         <span class="text">1 Image</span>
+      </li>
+      <li >
+         <span class="cirle"></span>
+         <span class="text">2 Review</span>
+      </li>
+      <li>
+         <span class="cirle"></span>
+         <span class="text">3 Size</span>
+      </li>
+      <li>
+         <span class="cirle"></span>
+         <span class="text">4 Frame</span>
+      </li>
+      <li>
+         <span class="cirle"></span>
+         <span class="text">5 Finalise</span>
+      </li>
+   </ul>
+</div>
+</section>
+<!--inner page banner ends-->
+
+
+<!--product section-->
+<section class="faq_section start_framing_section">
+ <div class="container">
+  <div class="row">
+   <div class="col-md-7">
+        <div class="panel-group" id="faqAccordion">
+          <div class="panel_title">What are you framing?</div>
+          <div class="panel panel-default ">
+            <div class="panel-heading accordion-toggle question-toggle collapsed" data-toggle="collapse" data-parent="#faqAccordion" data-target="#question0">
+              <h4 class="panel-title"> <a class="ing">I have a digital image to print</a> </h4>
+            </div>
+            <div id="question0" class="panel-collapse collapse">
+              <div class="panel-body">
+                  <ul class="images_to_print">
+                     <li  ui-sref = "user.editImage({'myParam':{'artType':'Digital'}})" style = "cursor: pointer">
+                        <img src="/views/styles/images/frame_pop_bg.png" height="136" width="286" />
+                        <div class="text" style="cursor:pointer">
+                          <div class="title">DIGITAL PHOTO</div>
+                          <p data-toggle="#myModal" >Tap to upload your image and we’ll print it at any size for free!</p>
+                        </div>
+                     </li>
+                     <li class="grey_text" style = "cursor: pointer"> 
+                     <!-- <li class="grey_text" ui-sref = "user.instagramPhoto" style = "cursor: pointer">                             -->
+                     <li class="grey_text" ui-sref = "user.instagramHome" style = "cursor: pointer">
+                        <img src="/views/styles/images/instaframe_pop_bg.png"  height="136" width="286"/>
+                        <div class="text">
+                          <div class="title">INSTAGRAM</div>
+                          <p data-toggle="modal" data-target="#myModal">13x13cm or 13x17cm print plus frame at only $39 delivered.</p>
+                        </div>
+                      </a>
+                     </li>
+                  </ul>
+              </div>
+            </div>
+          </div>
+          <div class="panel panel-default ">
+            <div class="panel-heading accordion-toggle question-toggle collapsed" data-toggle="collapse" data-parent="#faqAccordion" data-target="#question1">
+              <h4 class="panel-title"> <a class="ing">I have my own artwork</a> </h4>
+            </div>
+            <div id="question1" class="panel-collapse collapse">
+              <div class="panel-body">
+                <ul class="images_to_print">
+                     <li ui-sref = "user.artWork({'myParam':{'artType':'Print Poster'}})" style = "cursor: pointer">
+                        <img src="/views/styles/images/own_art_work/poster.jpg"  height="136" width="286"/>
+                        <div class="text">
+                          <div class="title">PRINT / POSTER</div>
+                          <p data-toggle="modal" data-target="#myModal">Film, travel, music or graphic posters and art prints on the paper.</p>
+                        </div>
+                     </li>
+                     <li ui-sref = "user.artWork({'myParam':{'artType':'Printed PHOTO'}})" style = "cursor: pointer">
+                        <img src="/views/styles/images/own_art_work/printed_photo.jpg"  height="136" width="286"/>
+                        <div class="text">
+                          <div class="title">PRINTED PHOTO</div>
+                          <p data-toggle="modal" data-target="#myModal">Old and new printed photographs.</p>
+                        </div>
+                     </li>
+                     <li ui-sref = "user.artWork({'myParam':{'artType':'Certificate'}})" style = "cursor: pointer">
+                        <img src="/views/styles/images/own_art_work/certificate.jpg"  height="136" width="286"/>
+                        <div class="text">
+                          <div class="title">CERTIFICATE</div>
+                          <p data-toggle="modal" data-target="#myModal">Diplomas, certificates and other awards on paper.</p>
+                        </div>
+                     </li>
+                     <li ui-sref = "user.artWork({'myParam':{'artType':'Original Art'}})" style = "cursor: pointer">
+                        <img src="/views/styles/images/own_art_work/original_art.jpg"  height="136" width="286"/>
+                        <div class="text">
+                          <div class="title">ORIGINAL ART</div>
+                          <p data-toggle="modal" data-target="#myModal">Paintings and drawings on paper or board.</p>
+                        </div>
+                     </li>
+                     <li ui-sref = "user.artWork({'myParam':{'artType':'Art On Canvas'}})" style = "cursor: pointer">
+                        <img src="/views/styles/images/own_art_work/canvas.jpg"  height="136" width="286"/>
+                        <div class="text">
+                          <div class="title">ART ON CANVAS</div>
+                          <p data-toggle="modal" data-target="#myModal">Artwork or prints on rolled or stretched canvas.</p>
+                        </div>
+                     </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+   </div>
+
+  </div>
+ </div>
+
+</section>

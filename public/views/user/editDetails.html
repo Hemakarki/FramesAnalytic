@@ -1,0 +1,213 @@
+<div class="container" ng-init="getDetails()">
+  <div class="row list-group">
+    <div class="item  col-xs-12 col-lg-10">
+      <hr/>
+      <div class="col-lg-12">
+        <h4 class="group inner list-group-item-heading" align="center">
+          <b>
+            User Details </b>
+        </h4>
+        <br>
+        <form name="userDetailForm" id="user_form">
+          <div class="col-sm-4">
+            <label>Email</label>
+          </div>
+          <div class="col-sm-8">
+
+            <input type="text" class="form-control" ng-model="details.email" placeholder="Email" name="email" ng-pattern="/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/"
+              maxlength="40" required>
+            <span style="color:red;" ng-show="userDetailForm.email.$error.required && userDetailForm.email.$touched">This field is mandatory </span>
+            <span style="color:red;" ng-show="userDetailForm.email.$error.pattern">Enter Valid Character</span>
+
+          </div>
+        </form>
+      </div>
+    </div>
+
+
+    <div class="item  col-xs-12 col-lg-10">
+      <br/>
+      <hr/>
+      <div class="col-lg-6">
+        <h4 class="group inner list-group-item-heading" align="center">
+          <b>
+            Shipping Address </b>
+        </h4>
+        <br>
+        <form name="shippingAddressForm" id="shipping_form">
+          <div class="form-group row">
+            <div class="col-sm-4">
+              <label>First Name</label>
+            </div>
+            <div class="col-sm-8">
+              <input type="text" placeholder="First Name" ng-model="shipping.firstName" name="firstname" class="form-control" maxlength="21"
+                ng-pattern="/^[a-z ,.'-]+$/i" required>
+
+              <span style="color:red;" ng-show="shippingAddressForm.firstname.$error.required && shippingAddressForm.firstname.$touched">This field is mandatory</span>
+              <span style="color:red;" ng-show="shippingAddressForm.firstname.$error.pattern">Enter Valid Character</span>
+              <br>
+              <span style="color:red " ng-show="shippingAddressForm.firstname.$error.maxlength && shippingAddressForm.firstname.$dirty">First name maximum length exceeds</span>
+
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <div class="col-sm-4">
+              <label>Last Name</label>
+            </div>
+            <div class="col-sm-8">
+              <input type="text" placeholder="Last Name" ng-model="shipping.lastName" name="lastname" class="form-control" maxlength="21"
+                ng-pattern="/^[a-z ,.'-]+$/i" required>
+
+              <span style="color:red;" ng-show="shippingAddressForm.lastname.$error.required && shippingAddressForm.lastname.$touched">This field is mandatory</span>
+              <span style="color:red;" ng-show="shippingAddressForm.lastname.$error.pattern">Enter Valid Character</span>
+              <br>
+              <span style="color:red " ng-show="shippingAddressForm.lastname.$error.maxlength && shippingAddressForm.lastname.$dirty">Last name maximum length exceeds</span>
+
+
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <div class="col-sm-4">
+              <label>Shipping Address</label>
+            </div>
+            <div class="col-sm-8">
+              <input type="text" placeholder="Shipping Address" ng-model="shipping.address1" name="address" google-shipping shipping="true"
+                class="form-control" index="1" required>
+              <span style="color:red " ng-show="shippingAddressForm.address.$error.required && shippingAddressForm.address.$touched">This field is mandatory</span>
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <div class="col-sm-4">
+              <label>State</label>
+            </div>
+            <div class="col-sm-8">
+              <input type="text" placeholder="State" ng-model="shipping.state" required name="state" class="form-control" disabled>
+              <span style="color:red " ng-show="shippingAddressForm.state.$error.required && shippingAddressForm.state.$touched">This field is mandatory</span>
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <div class="col-sm-4">
+              <label>City</label>
+            </div>
+            <div class="col-sm-8">
+              <input type="text" placeholder="City" ng-model="shipping.city" required name="city" class="form-control" disabled>
+              <span style="color:red " ng-show="shippingAddressForm.city.$error.required && shippingAddressForm.city.$touched">This field is mandatory</span>
+            </div>
+          </div>
+
+
+          <div class="form-group row">
+            <div class="col-sm-4">
+              <label>ZipCode</label>
+            </div>
+            <div class="col-sm-8">
+              <input type="text" placeholder="Postcode" ng-model="shipping.zipCode" class="form-control" name="zipcode" disabled>
+              <span style="color:red " ng-show="shippingAddressForm.zipcode.$error.required && shippingAddressForm.zipcode.$touched">This field is mandatory</span>
+            </div>
+          </div>
+        </form>
+      </div>
+
+      <div class="col-lg-6">
+        <h4 class="group inner list-group-item-heading" align="center">
+          <b>
+            Billing Address </b>
+        </h4>
+        <br>
+
+        <form name="billingAddressForm" id="billing_form">
+
+          <div class="form-group row">
+            <div class="col-sm-4">
+              <label>First Name</label>
+            </div>
+            <div class="col-sm-8">
+              <input type="text" placeholder="First Name" ng-model="billing.firstName" name="firstname" class="form-control" ng-minlength="3"
+                ng-maxlength="20" ng-pattern="/^[a-z ,.'-]+$/i" required>
+
+              <span style="color:red;" ng-show="billingAddressForm.firstname.$error.required && billingAddressForm.firstname.$touched">This field is mandatory</span>
+              <span style="color:red;" ng-show="billingAddressForm.firstname.$error.pattern">Enter Valid Character</span>
+              <br>
+              <span style="color:red " ng-show="billingAddressForm.firstname.$error.maxlength  && billingAddressForm.firstname.$dirty">First name maximum length exceeds</span>
+
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <div class="col-sm-4">
+              <label>Last Name</label>
+            </div>
+            <div class="col-sm-8">
+              <input type="text" placeholder="Last Name" ng-model="billing.lastName" class="form-control" maxlength="20" ng-pattern="/^[a-z ,.'-]+$/i"
+                required name="lastname">
+
+              <span style="color:red;" ng-show="billingAddressForm.lastname.$error.required && billingAddressForm.lastname.$touched">This field is mandatory</span>
+              <span style="color:red;" ng-show="billingAddressForm.lastname.$error.pattern">Enter Valid Character</span>
+              <br>
+              <span style="color:red " ng-show="billingAddressForm.lastname.$error.maxlength  && billingAddressForm.lastname.$dirty">Last name maximum length exceeds</span>
+
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <div class="col-sm-4">
+              <label>Billing Address</label>
+            </div>
+            <div class="col-sm-8">
+              <input type="text" placeholder="Billing Address" ng-model="billing.address1" name="address" google-billing billing="true"
+                class="form-control" index="2" required>
+              <span style="color:red " ng-show="billingAddressForm.address.$error.required && billingAddressForm.address.$touched">This field is mandatory</span>
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <div class="col-sm-4">
+              <label>State</label>
+            </div>
+            <div class="col-sm-8">
+              <input type="text" placeholder="State" ng-model="billing.state" required name="state" class="form-control" disabled>
+              <span style="color:red " ng-show="billingAddressForm.state.$error.required && billingAddressForm.state.$touched">This field is mandatory</span>
+            </div>
+          </div>
+
+
+          <div class="form-group row">
+            <div class="col-sm-4">
+              <label>City</label>
+            </div>
+            <div class="col-sm-8">
+              <input type="text" placeholder="City" ng-model="billing.city" required name="city" class="form-control" disabled>
+              <span style="color:red " ng-show="billingAddressForm.city.$error.required && billingAddressForm.city.$touched">This field is mandatory</span>
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <div class="col-sm-4">
+              <label>ZipCode</label>
+            </div>
+            <div class="col-sm-8">
+              <input type="text" placeholder="Postcode" ng-model="billing.zipCode" class="form-control" name="zipcode" disabled>
+              <span style="color:red " ng-show="billingAddressForm.zipcode.$error.required && billingAddressForm.zipcode.$touched">This field is mandatory</span>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="form-group row">
+      <center>
+        <button type="button" class="btn btn-primary" ng-click="updateUserDetails(details,shipping,billing)" ng-disabled="userDetailForm.$invalid || billingAddressForm.$invalid || shippingAddressForm.$invalid">Submit</button>
+      </center>
+    </div>
+  </div>
+
+</div>
+
+<div class="loading_div" ng-show='obj.loading'>
+  <center>
+    <img class="loading_img" src="./../images/Eclipse.gif">
+  </center>
+</div>

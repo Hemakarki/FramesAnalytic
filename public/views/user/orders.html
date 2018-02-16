@@ -1,0 +1,78 @@
+<div ng-init = "myOrders()"></div>
+<section ng-if = "orderData.length" class="framing_steps">
+ <div class="container">
+  <div class="row">
+     <div class="col-md-12 steps_info final_step">
+       <div class="frame_info">
+         <div class="title">My Orders</div>
+       </div>
+       <div class="frame_filter frame-orderlist" ng-repeat = "data in orderData">
+         <div class = "row orderlist" ng-repeat = "product in data.products">
+           <div class="col-md-2">
+             <ul class="thumbnails">
+                <li ng-repeat = "image in product.frameData.frameImages">
+                  <img ng-if = "image.imageType == imageType" src="/images/frames/{{imageType}}/{{image.imgPath}}" width="100" height="100" alt="thumb"/>
+                </li>
+             </ul>
+           </div>
+
+           <div class="col-md-10">
+
+            <div class="specification">
+               <div class="title">{{product.frameData.frameName}}</div>
+               <ul>
+                 <!-- <li>
+                    <label>Approximate artwork size</label>
+                    <span>{{data.artData.artSizeCatagory.artSize.height | number : 2}} * {{data.artData.artSizeCatagory.artSize.width | number : 2}}</span>
+                 </li>
+                 <li>
+                    <label>Approximate frame size</label>
+                    <span>{{data.artData.artSizeCatagory.artSize.height + 8 | number : 2}} * {{data.artData.artSizeCatagory.artSize.width + 8  | number : 2}}</span>
+                 </li> -->
+                 <li>
+                     <label>Item Price</label>
+                     <span>${{product.itemPrice}}</span>
+                  </li>
+                  <li>
+                     <label>Mat Style</label>
+                     <span>{{product.matData.matColor}}</span>
+                  </li>
+               </ul>
+             </div>
+            </div>
+          </div>
+
+            <ul class="total">
+               <li>
+                  <label>TOTAL</label>
+                  <span>${{data.totalPrice}}</span>
+               </li>
+            </ul>
+
+         </div>
+
+
+       </div>
+
+       <div class="col-md-4">
+         <div class="col-md-4">
+            <div class="slider_bottom">
+              <!-- <a href="javascript:void(0)" class="red_button button add_to_cart" >Pay Now</a> -->
+            </div>
+         </div>
+       </div>
+     </div>
+    </div>
+</section>
+
+
+
+<section ng-if = "!orderData.length" class="framing_steps">
+  <div class="frame_info">
+    <div class="container">
+        <div class="maintitle">No Orders Available.</div>
+        <a href="javascript:void(0)" class="red_button button add_to_cart" ui-sref = "user.framesType">Keep Shopping</a>
+        <br/><br/>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,146 @@
+<ol class="breadcrumb">
+  <li><a ui-sref="admin.dashboard">Dashboard</a></li>
+  <li><a ui-sref="admin.listFrames">Frames</a></li>
+  <li class="active">Edit</li>
+</ol>
+<div class="container" ng-init = "editFrame()">
+    <div class="row">
+			<div class="col-md-10">
+				<div class="panel panel-login">
+					<div class="panel-heading">
+
+					</div>
+					<div class="panel-body">
+            <div class="row">
+              <div class="col-lg-12">
+                <form id = "editFrameForm" name="editFrameForm" style="display: block;" class="form-horizontal" role = "form">
+                  <div class="form-group row">
+                    <label for="example-text-input" class="col-2 col-form-label">Frame Name</label>
+                    <div class="col-10">
+                      <input class="form-control" tabindex="1" type="text" name = "frameName" ng-model = 'frame.frameName' minlength = "4" ng-pattern="/^[^]{4,20}$/" required>
+                      <span style = "color: #a94442;" ng-show="editFrameForm.frameName.$dirty && editFrameForm.frameName.$invalid">
+                        <span ng-show="editFrameForm.frameName.$error.required">This field is required.</span>
+                        <span ng-show = "editFrameForm.frameName.$invalid"> Field must be 4 to 20 characters long , Special Characters are not allow.</span>
+                      </span>
+                    </div>
+                  </div>
+
+
+                  <div class="form-group row">
+                      <label for="example-color-input" class="col-2 col-form-label">Frame Colour</label>
+                      <div class="row">
+                          <div class="col-md-12">
+                              <select class="form-control" name="frameColor" ng-model="frame.frameColor">
+                                <option ng-repeat="list in colors">{{list.frameColor}}</option>
+                              </select>
+                              <span style="color: #a94442;" ng-show="addFramesForm.frameColor.$dirty">
+                                <span ng-show="addFramesForm.frameColor.$error.required">This field is required</span>
+                              </span>
+                          </div>
+                      </div>
+                  </div>
+
+
+
+                  <div class = "form-group row">
+                    <label for="example-size-input" class="col-2 col-form-label">Frame Size</label>
+                      <select class="form-control" name="frameSize" ng-model="frame.frameSize">
+                        <!-- ng-change = "change(frame.frameSize)" -->
+                        <option ng-repeat="size in frameSizes">{{size.frameSize}}</option>
+                      </select>
+                      <span style="color: #a94442;" ng-show="addFramesForm.frameSize.$dirty">
+                        <span ng-show="addFramesForm.frameSize.$error.required">This field is required</span>
+                      </span>
+                  </div>
+
+
+
+
+                  <div class="form-group row">
+                    <label for="example-email-input" class="col-2 col-form-label">Frame Description</label>
+                    <div class="col-10">
+                      <input type = "text" class="form-control" tabindex="1" name = "frameDescription" ng-model='frame.frameDescription' ng-pattern="/^[^]{10,50}$/" required />
+                      <span style = "color: #a94442;" ng-show="editFrameForm.frameDescription.$dirty && editFrameForm.frameDescription.$invalid">
+                        <span ng-show="editFrameForm.frameDescription.$error.required">This field is required</span>
+                        <span ng-show = "editFrameForm.frameDescription.$invalid">Field must be 10 to 50 characters long , Special Characters are not allow.</span>
+                      </span>
+                    </div>
+                  </div>
+
+                  <div class="form-group row">
+                    <label for="example-url-input" name = "frameOverview" class="col-2 col-form-label">Frame Overview</label>
+                    <div class="col-10">
+                      <textarea class="form-control" tabindex="1" name  = "frameOverview" rows="3" ng-model="frame.frameOverview"  ng-pattern="/^[^]{20,1000}$/" required ></textarea>
+                      <span style = "color: #a94442;" ng-show="editFrameForm.frameOverview.$dirty && editFrameForm.frameOverview.$invalid">
+                        <span ng-show="editFrameForm.frameOverview.$error.required">This field is required.</span>
+                        <span ng-show = "editFrameForm.frameOverview.$invalid">Field must be at least 20 characters long.</span>
+                      </span>
+                    </div>
+                  </div>
+
+                  <div class="form-group row">
+                      <div class="col-md-6">    
+                          <label for="files" ng-if = "frame.frameImage.length != 4 - count">Select only {{4 - count}} Primary Images</label>
+                          <input ng-if = "frame.frameImage.length != 4 - count" style = "color:transparent;" ng-if = "!frame.frameImage" type="file" accept="image/*" ng-model="frame.frameImage" accept="image/*" multiple base-sixty-four-input />
+                          <br/>
+                          <span ng-if="!validImage" style="color: #912e2d;">Not a valid image</span>
+                          <span ng-if="!validImage" style="color: #1d501e;">Valid Image Formats are - jpg/png</span>
+                          <span ng-repeat="images in frame.frameImages">
+                            <br/>
+                            <img ng-if="images.isPrimary" width="100" src="/images/frames/{{images.imageType}}/{{images.imgPath}}"></img>
+                            <i ng-if="images.isPrimary" class="fa fa-times" aria-hidden="true" ng-click = "removeIndex(images._id, frame._id)"></i>
+                            <select ng-if="images.isPrimary" ng-model="listArray1" ng-change="editSize($index, listArray1)">
+                                <option ng-repeat="size in listArray"  ng-disabled="size.isDisabled">{{size.name}}</option>
+                            </select>
+                            <br/>
+                          </span>
+                          <span ng-repeat="bases in frame.frameImage">
+                              <img ng-if = "frame.frameImage.length == 4 - count" ng-src="data:image/png;base64, {{bases.base64}}" alt="No Image" class="img-thumbnail" width="100px"/>
+                              <select ng-if = "frame.frameImage.length == 4 - count" ng-model="listArray1" ng-change="selectSize($index, listArray1)">
+                                  <option ng-repeat="size in listArray"  ng-disabled="size.isDisabled">{{size.name}}</option>
+                              </select>
+                              <br/>
+                          </span>
+                          <span ng-if = "frame.frameImage.length != 4 - count" style = "color : red">
+                            Select only {{4 - count}} Primary Images
+                          </span>
+                      </div>
+
+                      <div class="col-md-6">
+                          <label for="files" ng-if = "frame.frameSecImg.length != 3 - secondry">Select only {{3 - secondry}} Secondary Images</label>
+                          <input ng-if = "frame.frameSecImg.length != 3 - secondry" style = "color:transparent;" ng-if = "!frame.frameSecImg" type="file" accept="image/*" ng-model="frame.frameSecImg" accept="image/*" multiple base-sixty-four-input />
+                          <br/>
+                          <span ng-if="!validImage" style="color: #a94442;">Not a valid image</span>
+                          <span ng-if="!validImage" style="color: #3c763d;">Valid Image Formats are - jpg/png</span>
+                          <span ng-repeat="images in frame.frameImages">
+                            <br/>
+                            <img ng-if="!images.isPrimary" width="100" src="/images/frames/{{images.imageType}}/{{images.imgPath}}"></img>
+                            <i ng-if="!images.isPrimary" class="fa fa-times" aria-hidden="true" ng-click = "removeIndex(images._id, frame._id)"></i>
+                            <!-- <br/> -->
+                          </span>
+                          <span ng-repeat="bases in frame.frameSecImg">
+                              <img ng-if = "frame.frameSecImg.length == 3 - secondry" ng-src="data:image/png;base64, {{bases.base64}}" alt="No Image" class="img-thumbnail" width="100px"/>
+                              <br/>
+                          </span>
+                          <span ng-if = "frame.frameSecImg.length != 3 - secondry" style = "color : red">
+                            Select only {{3 - secondry}} Secondary Images
+                          </span>
+                      </div>
+                  </div>
+
+                  <div class="form-group">
+                    <div class="row">
+                      <div class="button_submit col-sm-4 col-sm-offset-4">
+                        <button class = "btn btn-warning" type = "button" ui-sref = "admin.listFrames">Cancel</button>
+                        <button class = "btn btn-primary" type="button" ng-disabled="editFrameForm.$invalid || !validImage" ng-click = "saveEditFrame(frame)" tabindex="4" class="form-control btn btn-primary">Save Frame</button>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>

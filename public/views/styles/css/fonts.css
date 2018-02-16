@@ -1,0 +1,5 @@
+@charset "utf-8";
+@font-face { font-family: 'Archer-Semibold'; src: url(../fonts/Archer-Semibold.eot), url(../fonts/Archer-Semibold.otf), url(../fonts/Archer-Semibold.ttf), url(../fonts/Archer-Semibold.woff); font-weight: normal; font-style: normal; }
+@font-face { font-family: 'Archer-book'; src: url(../fonts/Archer-Book.eot), url(../fonts/Archer-Book.otf), url(../fonts/Archer-Book.ttf), url(../fonts/Archer-Book.woff); font-weight: normal; font-style: normal; }
+@font-face { font-family: 'Avenir'; src: url(../fonts/Avenir-Roman.eot), url(../fonts/Avenir-Roman.ttf), url(../fonts/Avenir-Roman.woff); ; font-weight: normal; font-style: normal; }
+@font-face { font-family: 'Avenir-Heavy'; src: url(../fonts/Avenir-Heavy.eot), url(../fonts/Avenir-Heavy.ttf), url(../fonts/Avenir-Heavy.woff); ; font-weight: normal; font-style: normal; }

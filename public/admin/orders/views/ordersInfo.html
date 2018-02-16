@@ -1,0 +1,169 @@
+<div ng-init="ordersInfo()">
+    <div class="row list-group" ng-repeat = "order in orderInfo">
+      <!-- --{{orderInfo}} -->
+         
+            <div class="col-lg-12">
+                <h4 class="group inner list-group-item-heading" align="center"><b>
+                        Order Details </b></h4>
+                <table class="table table-striped">
+                    <tr>
+                        <td width="50%" style="margin: 0; font-weight: 500;">EMAIL</td>
+                        <td> {{order.userData.email}} </td>
+                    </tr>
+                    <tr ng-if = "order.isPromo">
+                        <td style="margin: 0;font-weight: 500;">PROMO</td>
+                        <td> {{order.promoId}} </td>
+                    </tr>
+                    <tr ng-if = "order.isGift">
+                        <td style="margin: 0;font-weight: 500;">GIFT MESSAGE</td>
+                        <td> {{order.giftMessage}} </td>
+                    </tr>
+                    <tr>
+                        <td style="margin: 0;font-weight: 500;">ORDER NUMBER</td>
+                        <td> {{order.orderNumber}} </td>
+                    </tr>
+                    <tr>
+                        <td style="margin: 0;font-weight: 500;">ORDER DATE</td>
+                        <td> {{order.createdOn|date}} </td>
+                    </tr>
+                    <tr ng-if = "order.orderNotes">
+                        <td style="margin: 0;font-weight: 500;">ORDER NOTES</td>
+                        <td> {{order.orderNotes}} </td>
+                    </tr>
+                    <tr>
+                        <td style="margin: 0;font-weight: 500;">PAYMENT METHOD</td>
+                        <td> {{order.paymentMethod}} </td>
+                    </tr>
+                    <tr>
+                        <td style="margin: 0;font-weight: 500;">TRANSACTION ID</td>
+                        <td> {{order.transactionId}} </td>
+                    </tr>
+                    <tr>
+                        <td style="margin: 0;font-weight: 500;">PAYMENT STATUS</td>
+                        <td> {{order.paymentStatus}} </td>
+                    </tr>
+                    <tr>
+                        <td style="margin: 0;font-weight: 500;">TOTAL PRICE</td>
+                        <td> {{order.totalPrice | currency}} </td>
+                    </tr>
+
+                </table>
+            </div>
+         
+           <hr/>
+            <div class = "col-lg-6">
+                    <h4 class="group inner list-group-item-heading" align="center"><b>
+                            Billing  Address </b></h4>
+                    <table class="table table-striped">
+                        <tr>
+                            <td width="50%" style=" margin: 0; font-weight: 500;">USER NAME</td>
+                            <td> {{order.userData.billingAddress.firstName}} {{order.userData.billingAddress.lastName}} </td>
+                        </tr>
+                        <tr>
+                            <td style="margin: 0;font-weight: 500;"> ADDRESS</td>
+                            <td> {{order.userData.billingAddress.address1}} </td>
+                        </tr>
+                        <tr>
+                            <td style="margin: 0;font-weight: 500;"> CITY</td>
+                            <td> {{order.userData.billingAddress.city}} </td>
+                        </tr>
+                        <tr>
+                            <td style="margin: 0;font-weight: 500;"> STATE</td>
+                            <td> {{order.userData.billingAddress.state}} </td>
+                        </tr>
+    
+                    </table>
+                </div>
+            
+            <div class="col-lg-6">
+                <h4 class="group inner list-group-item-heading" align="center"><b>
+                        Shipping  Address </b></h4>
+                <table class="table table-striped" >
+                    <tr>
+                        <td>
+                            <h5 style="margin: 0;font-weight: 500;"> ADDRESS</td>
+                        <td> {{order.userData.billingAddress.address1}} </td>
+                    </tr>
+                    <tr>
+                        <td style="margin: 0;font-weight: 500;"> CITY</td>
+                        <td> {{order.userData.billingAddress.city}} </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <h5 style="margin: 0;font-weight: 500;"> STATE</td>
+                        <td> {{order.userData.billingAddress.state}} </td>
+                    </tr>
+
+                </table>
+            </div>
+            
+            <div ng-if = "order.userData.packagingAddress.length" class = "col-lg-6">
+                <h4 class="group inner list-group-item-heading" align="center"><b>
+                        Packaging  Address </b></h4>
+                <table class="table table-striped">
+                    <tr>
+                        <td style="margin: 0;font-weight: 500;"> ADDRESS</td>
+                        <td> {{userDetail.packagingAddress.address}} </td>
+                    </tr>
+                    <tr>
+                        <td style="margin: 0;font-weight: 500;"> CITY</td>
+                        <td> {{userDetail.packagingAddress.city}} </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <h5 style="margin: 0;font-weight: 500;"> STATE</td>
+                        <td> {{userDetail.packagingAddress.state}} </td>
+                    </tr>
+
+                </table>
+            </div>
+        
+        <div class="item  col-xs-12 col-lg-12">
+          <h4 class="group inner list-group-item-heading" align="center">
+            <b>Product Details</b>
+          </h4>
+          <table class="table table-striped"   ng-repeat = "items in products">
+              <tr>
+               <td colspan="3"><b>ITEM {{$index+1}}</b></td>
+
+              </tr>
+              <tr>
+                  <td style="margin: 0;font-weight: 500;"> Frame Name</td>
+                  <td> {{items.frameData.frameName}} </td>
+
+                  <!-- <td rowspan="5" colspan="3" align='center'> <img width = "300px" src = "{{items.productImage}}" ng-click = "downloadImg(items.productImage)"></img></td> -->
+                <td rowspan="5" colspan="3" align='center'> 
+                    <a download href="{{items.productImage}}">
+                        <img width = "300px" src="{{items.productImage}}">
+                    </a>
+                </td>
+              </tr>
+              <tr>
+                  <td style="margin: 0;font-weight: 500;"> Frame Colour</td>
+                  <td> {{items.frameData.frameColor}} </td>
+              </tr>
+              <tr>
+                  <td style="margin: 0;font-weight: 500;"> Art Size</td>
+                  <td> {{items.artData.artSizeCatagory.artSize.width|number:2}}cm x {{items.artData.artSizeCatagory.artSize.height|number:2}}cm</td>
+              </tr>
+              <tr>
+                  <td style="margin: 0;font-weight: 500;"> Mat Colour</td>
+                  <td> {{items.matData.color}}</td>
+              </tr>
+              <tr ng-if = "items.matData.matPrice != 0">
+                  <td style="margin: 0;font-weight: 500;"> Optional Cost</td>
+                  <td> {{items.matData.matPrice | currency}}</td>
+              </tr>
+              <tr>
+                  <td style="margin: 0;font-weight: 500;"> Art Type</td>
+                  <td> {{items.artData.artType}}</td>
+              </tr>
+             <!--  <tr>
+                  <td style="margin: 0;font-weight: 500;">Product Image</td>
+                  <td> <img width = "100px" src = "{{items.productImage}}" ng-click = "downloadImg(items.productImage)"></img></td>
+
+              </tr> -->
+          </table>
+        </div>
+    </div>
+</div>

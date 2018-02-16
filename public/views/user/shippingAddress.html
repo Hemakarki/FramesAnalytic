@@ -1,0 +1,143 @@
+<!--image_uploading_steps-->
+<div class="image_uploading_steps" ng-init = "updateCartForUser()">
+   <ul>
+      <li ui-sref = "user.framesType">
+         <span class="cirle" ui-sref = "user.framesType" ></span>
+         <span class="text" >1 Image</span>
+      </li>
+      <li ui-sref = "user.editImage">
+         <span class="cirle"></span>
+         <span class="text">2 Review</span>
+      </li>
+      <li ui-sref = "user.imageSize">
+         <span class="cirle"></span>
+         <span class="text">3 Size</span>
+      </li>
+      <li ui-sref = "user.frames">
+         <span class="cirle"></span>
+         <span class="text">4 Frame</span>
+      </li>
+      <li class="active">
+         <span class="cirle"></span>
+         <span class="text">5 Finalise</span>
+      </li>
+   </ul>
+</div>
+
+<br/><br/>
+<!--image_uploading_steps-->
+
+
+<section class="framing_steps" ng-init = "showaddress()">
+ <div class="container">
+  <div class="row">
+    <form id="userForm" name="userForm">
+     <div class="col-md-4 steps_info final_step">
+        <div class="title">Billing Address </div>
+           <div class="frame_filter">
+                <div class="form-group">
+                  <label id="select_box_label">First Name</label>
+                  <input valid-alpha type="text" class="form-control" ng-model="Billing.firstName" placeholder="Enter first name" name="firstname" ng-minlength="3" maxlength="21" maxlength = "20" required>
+                    <div role="alert">
+                      <span class="error" ng-show="userForm.firstname.$error.minlength">Too short!</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                  <label id="select_box_label">Last Name</label>
+                  <input valid-alpha type="text " class="form-control " ng-model="Billing.lastName " placeholder="Enter last name " ng-minlength="3" maxlength = "20" name="lastname">
+                  <div role="alert">
+                    <span class="error" ng-show="userForm.lastname.$error.minlength">Too short!</span>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label id="select_box_label">Address</label>
+                    <input  type="text" class="form-control" index="2" ng-model="Billing.address"  placeholder="Enter address" name="address"  google-billing  billing="true" required>
+                </div>
+                <div class="form-group">
+                    <label id="select_box_label">State</label>
+                    <input valid-alpha type="text" class="form-control" ng-model="Billing.state" placeholder="Enter address" required >
+                </div>
+                <div class="form-group">
+                    <label id="select_box_label">City</label>
+                    <input valid-alpha type="text" class="form-control" ng-model="Billing.city" placeholder="Enter address"  required>
+                 </div>
+                <div class="form-group">
+                    <label id="select_box_label">ZipCode</label>
+                    <input valid-number type="text" class="form-control"   placeholder="Enter zip code" ng-model="Billing.zipCode" required>
+                </div>
+                <div class="form-group">
+                    <label id="select_box_label" >Mobile Number</label>
+                    <div  class="input-group">
+                        <div class="input-group-addon">
+                            +61
+                        </div>
+
+                        <input valid-number type="text" class="form-control" ng-model="Billing.phone" ng-minlength="9" maxlength="10" name="phone" placeholder="(xxx) xxx-xxxx" required/>
+                        <div role="alert">
+                          <span class="error" ng-show="userForm.phone.$error.minlength">  Too short!</span>
+                        </div>
+                    </div>
+              </div>
+          </div>
+       </div>
+
+       <div class="col-md-4 steps_info final_step">
+          <div class="title">Shipping Address  </div>
+            <div class="frame_filter">
+
+                <div class="form-group">
+                  <label id="select_box_label">First Name</label>
+                  <input valid-alpha type = "text" class="form-control" ng-model="Shipping.firstName" placeholder="Enter first name" ng-minlength="3" maxlength = "20" name="Sfirstname" ng-readonly = "sameAs" required>
+                  <div role="alert">
+                    <span class="error" ng-show="userForm.phone.$error.minlength">Too short!</span>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label id="select_box_label">Last Name</label>
+                  <input valid-alpha type="text " class="form-control " ng-model="Shipping.lastName " placeholder="Enter last name" ng-minlength="3"  maxlength = "20" name="lastname"  ng-readonly = "sameAs">
+                  <div role="alert">
+                    <span class="error" ng-show="userForm.phone.$error.minlength">  Too short!</span>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label id="select_box_label">Address</label>
+                    <input  type="text" class="form-control" ng-model="Shipping.address"  placeholder="Enter address" name="saddress" ng-readonly = "sameAs" google-shipping  shipping="true" index="3"  required>
+                </div>
+                <div class="form-group">
+                    <label id="select_box_label">State</label>
+                    <input valid-alpha type="text" class="form-control" ng-model="Shipping.state" placeholder="Enter State" name="Sstate"  ng-readonly = "sameAs" required>
+                </div>
+                <div class="form-group">
+                    <label id="select_box_label">City</label>
+                    <input  type="text" class="form-control" ng-model="Shipping.city" placeholder="Enter City"  name="Scity"  ng-readonly = "sameAs" required>
+                </div>
+                <div class="form-group">
+                    <label id="select_box_label">ZipCode</label>
+                    <input valid-number type="text" class="form-control" name="Szipcode"  placeholder="Enter zip code"   ng-model="Shipping.zipCode"  ng-readonly = "sameAs" required>
+                </div>
+                <div class="form-group">
+                    <label id="select_box_label" >Mobile Number</label>
+                    <div  class="input-group">
+                        <div class="input-group-addon">+61</div>
+                        <input valid-number type="text" class="form-control" name = "sname" ng-model="Shipping.phone" ng-minlength="9" maxlength="10" placeholder="(xxx) xxx-xxxx" ng-readonly = "sameAs"  ng-readonly = "sameAs" required/>
+                        <div role="alert">
+                          <span class="error" ng-show="userForm.sname.$error.minlength">Too short!</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <button type="submit" ng-disabled = "userForm.$invalid == true" class="red_button btn btn-default" ng-click = "updateAddress(Billing, Shipping)">Update Address</button>
+
+  <br/>  <br/>
+          </div>
+
+          <div class="col-md-4 steps_info final_step">
+            <input type="checkbox" name="sameAs" value = "true" ng-model = "sameAs" ng-change = "sameAddress(sameAs)" unchecked> Same As Billing Addres
+          </div>
+
+        </form>
+    </div>
+  </div>
+</section>

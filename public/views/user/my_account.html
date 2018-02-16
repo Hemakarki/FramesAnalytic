@@ -1,0 +1,258 @@
+<!--checkout process-->
+<section class="checkout_process" ng-init = "getUser()">
+   <div class="container">
+      <div class="main_title col-md-offset-1">My account.</div>
+      <div class="row">
+         <div class="col-md-10 col-md-offset-1"><div class="your_order">Your details</div></div>
+      </div>
+      <div class="row account_details">
+         <div ng-if = "obj.personalField" class="col-md-5 col-md-offset-1">
+            <div class="cart_listing">                   
+                   <ul>
+                      <li>
+                         <label class="title"><strong>Personal details:</strong></label>
+                         <label class="value"><a ng-click = "personalField = false;editInfo('personal')" style="cursor: pointer;">Edit</a></label>
+                      </li> 
+                      <li>Person’s Name : {{userData.firstName}} {{userData.lastName}}</li>
+                      <li>Email: {{userData.email}}</li>
+                      <li>Password: ******</li>
+                    </ul>
+            </div>
+                 <a href="#" ui-sref = "user.orders" class="view_text">View your order history</a>
+         </div>
+         
+         <div class="col-md-5">  
+         	<div ng-if = "obj.billingField" class="cart_listing">                   
+                   <ul>
+                      <li>
+                         <label class="title"><strong>Billing address:</strong></label>
+                         <label class="value"><a ng-click = "billingField = false;editInfo('billing')" style="cursor: pointer;">Edit</a></label>
+                      </li> 
+                      <li>Person’s Name : {{userData.billingAddress.firstName}} {{userData.billingAddress.lastName}}</li>
+                      <li>{{userData.billingAddress.address1}}</li>
+                      <li>{{userData.billingAddress.city}}, {{userData.billingAddress.zipCode}}</li>
+                   </ul>
+          </div> 
+                
+          <div ng-if = "obj.shippingField" class="cart_listing p_top28">                   
+            <ul>
+              <li>
+                  <label class="title"><strong>Shipping address:</strong></label>
+                  <label class="value"><a ng-click = "shippingField = false;editInfo('shipping')" style="cursor: pointer;">Edit</a></label>
+              </li> 
+              <li>Person’s Name : {{userData.shippingAddress.firstName}} {{userData.shippingAddress.lastName}}</li>
+              <li>{{userData.shippingAddress.address1}}</li>
+              <li>{{userData.shippingAddress.city}}, {{userData.shippingAddress.zipCode}}</li>
+            </ul>
+      </div> 
+                    
+         </div>
+         <div class="col-md-10 col-md-offset-1">
+          <form name="account_form" id="account_form">
+            <div ng-if = "obj.billing">
+                <label>Billing Address</label>
+                <hr>
+                <div class="item_list">
+                    <input type="text" placeholder="First name" ng-model="Billing.firstName" name="firstname" ng-pattern="/^[a-z ,.'-]+$/i" ng-minlength="3"
+                        ng-maxlength="20" maxlength="21" required>
+                    <span style="color:rgb(214, 95, 95);" ng-show="account_form.firstname.$error.required && account_form.firstname.$touched">This field is mandatory</span>
+                    <span style="color:rgb(185, 73, 73);" ng-show="account_form.firstname.$error.pattern">Enter Valid Character</span>
+                    <br>
+                    <span style="color:rgb(175, 65, 65) " ng-show="account_form.firstname.$error.maxlength && account_form.firstname.$dirty">First name maximum length exceeds</span>
+                </div>
+                <div class="item_list">
+                    <input type="text" placeholder="Last name" ng-model="Billing.lastName " ng-pattern="/^[a-z ,.'-]+$/i" ng-minlength="3" ng-maxlength="20"
+                        maxlength="21" required name="lastname">
+                    <span style="color:rgb(175, 65, 65)" ng-show="account_form.lastname.$error.required && account_form.lastname.$touched">This field is mandatory</span>
+                    <span style="color:rgb(175, 65, 65)" ng-show="account_form.lastname.$error.pattern">Enter Valid Character</span>
+                    <br>
+                    <span style="color:rgb(175, 65, 65) " ng-show="account_form.lastname.$error.maxlength && account_form.lastname.$dirty">First name maximum length exceeds</span>
+                </div>
+                <div class="item_list">
+                    <input type="text" placeholder="Address line 1" ng-model="Billing.address1" name="address" google-billing billing="true"
+                        required>
+                    <span style="color:rgb(175, 65, 65) " ng-show="account_form.address.$error.required && account_form.address.$touched">This field is mendatory</span>
+                </div>
+                <div class="item_list">
+                    <input type="text" placeholder="Address line 2 (Optional)" ng-model="Billing.address2">
+                </div>
+                <div class="item_list">
+                    <input type="text" placeholder="Suburb" ng-model="Billing.city" name="city" required>
+                    <span style="color:rgb(175, 65, 65) " ng-show="account_form.city.$error.required && account_form.city.$touched">This field is mendatory</span>
+                </div>
+                <div class="row">
+                    <div class="item_list col-md-6 col-xs-6">
+                        <input type="text" placeholder="Postcode" ng-model="Billing.zipCode" disabled="">
+                    </div>
+                    <div class="item_list col-md-6 col-xs-6">
+                        <input type="text" placeholder="State" ng-model="Billing.state" name="state" required>
+                        <span style="color:rgb(175, 65, 65) " ng-show="account_form.state.$error.required && account_form.state.$touched">This field is mendatory</span>
+                    </div>
+                </div>
+
+                <span>
+                  <button class="red_button button large" ng-disabled="account_form.$invalid" ng-click="updateBilling(Billing)">
+                      UPDATE BILLING ADDRESS
+                  </button>
+                </span>
+
+            </div>
+            
+
+            <div ng-if = "obj.shipping">
+                <label>Shipping Address</label>
+                <hr>
+                <div class="item_list">
+                    <input type="text" placeholder="First name" ng-model="Shipping.firstName" name="sfirstname" ng-pattern="/^[a-z ,.'-]+$/i"
+                        ng-minlength="3" ng-maxlength="20" maxlength="21" required>
+                    <span style="color:rgb(175, 65, 65)" ng-show="account_form.sfirstname.$error.required && account_form.sfirstname.$touched">This field is mendatory</span>
+                    <span style="color:rgb(175, 65, 65)" ng-show="account_form.sfirstname.$error.pattern">Enter Valid Character</span>
+                    <br>
+                    <span style="color:rgb(175, 65, 65) " ng-show="account_form.sfirstname.$error.maxlength && account_form.sfirstname.$dirty">First name maximum length exceeds</span>
+                </div>
+                <div class="item_list">
+                    <input type="text" placeholder="Last name" ng-model="Shipping.lastName " ng-pattern="/^[a-z ,.'-]+$/i" ng-minlength="3" ng-maxlength="20"
+                        maxlength="21" required name="slastname">
+                    <span style="color:rgb(175, 65, 65)" ng-show="account_form.slastname.$error.required && account_form.slastname.$touched">This field is mendatory</span>
+                    <span style="color:rgb(175, 65, 65)" ng-show="account_form.slastname.$error.pattern">Enter Valid Character</span>
+                    <br>
+                    <span style="color:rgb(175, 65, 65) " ng-show="account_form.slastname.$error.maxlength && account_form.slastname.$dirty">First name maximum length exceeds</span>
+                </div>
+                <div class="item_list">
+                    <input type="text" placeholder="Address line 1" ng-model="Shipping.address1" name="saddress" google-shipping shipping="true"
+                        required>
+                    <span style="color:rgb(175, 65, 65)" ng-show="account_form.saddress.$error.required && account_form.saddress.$touched">This field is mandatory</span>
+                </div>
+                <div class="item_list">
+                    <input type="text" placeholder="Address line 2 (Optional)" ng-model="Shipping.address2">
+                </div>
+                <div class="item_list">
+                    <input type="text" placeholder="Suburb" ng-model="Shipping.city" required name="scity">
+                    <span style="color:rgb(175, 65, 65)" ng-show="account_form.scity.$error.required && account_form.scity.$touched">This field is mandatory</span>
+                </div>
+                <div class="row">
+                    <div class="item_list col-md-6 col-xs-6">
+                        <input type="text" placeholder="Postcode" ng-model="Shipping.zipCode" disabled="">
+                    </div>
+                    <div class="item_list col-md-6 col-xs-6">
+                        <input type="text" placeholder="State" ng-model="Shipping.state" name="state" required>
+                        <span style="color:rgb(175, 65, 65)" ng-show="account_form.sstate.$error.required && account_form.sstate.$touched">This field is mendatory</span>
+                    </div>
+                </div>
+
+                <span>
+                  <button class="red_button button large" ng-disabled="account_form.$invalid" ng-click="updateShipping(Shipping)">
+                    UPDATE SHIPPING ADDRESS
+                  </button>
+                </span>
+
+            </div>
+
+            <div ng-if = "obj.personal">
+                <label>Personal Details</label>
+                <hr>
+      
+                <div class="item_list">
+                    <input type="text" placeholder="First name" ng-model="Personal.firstName" name="firstname" ng-pattern="/^[a-z ,.'-]+$/i"
+                        ng-minlength="3" ng-maxlength="20" maxlength="21" required>
+                    <span style="color:red;" ng-show="account_form.firstname.$error.required && account_form.firstname.$touched">This field is mandatory</span>
+                    <span style="color:red;" ng-show="account_form.firstname.$error.pattern">Enter Valid Character</span>
+                    <br>
+                    <span style="color:red " ng-show="account_form.firstname.$error.maxlength && account_form.firstname.$dirty">First name maximum length exceeds</span>
+                </div>
+      
+                <div class="item_list">
+                    <input type="text" placeholder="Last name" ng-model="Personal.lastName " ng-pattern="/^[a-z ,.'-]+$/i" ng-minlength="3"
+                        ng-maxlength="20" maxlength="21" required name="lastname">
+                    <span style="color:red;" ng-show="account_form.lastname.$error.required && account_form.lastname.$touched">This field is mandatory</span>
+                    <span style="color:red;" ng-show="account_form.lastname.$error.pattern">Enter Valid Character</span>
+                    <br>
+                    <span style="color:red " ng-show="account_form.lastname.$error.maxlength && account_form.lastname.$dirty">First name maximum length exceeds</span>
+                </div>
+                
+                <div class="item_list">
+                    <input type="email" placeholder="Email" name="email" ng-model="Personal.email" ng-pattern="/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/"
+                        required disabled>
+                    <span style="color:rgb(175, 65, 65)" ng-show="account_form.email.$error.required && account_form.email.$touched">This field is mendatory </span>
+                    <span style="color:rgb(175, 65, 65)" ng-show="account_form.email.$error.pattern">Enter Valid Character</span>
+                </div>
+
+
+                <div ng-if = "showPass" class="item_list">
+                    <input type="password" placeholder="Password (at least 6 character)" ng-model="Personal.password" ng-minlength="5" ng-maxlength="20"
+                        maxlength="21" name="password" required>
+                    <div class="validationError" ng-if="!updateButton" ng-show="account_form.password.$error.minlength">
+                        <span style="color:rgb(175, 65, 65) ">password too Short (atleast 5 characters)</span>
+                    </div>
+                    <div class="validationError" ng-if="!updateButton" ng-show="account_form.password.$error.maxlength && account_form.password.$dirty">
+                        <span style="color:rgb(175, 65, 65) ">password maximum length exceeds</span>
+                    </div>
+                </div>
+                <div ng-if = "showPass" class="item_list">
+                    <input type="password" placeholder="Confirm password" ng-model="Personal.confirmPassword" required pw-check='password' name="confirmPassword"
+                        id="confirmPassword" ng-pattern="Personal.password" ng-class="{iserror:input=='password'}">
+                    <div class="validationError" ng-messages="account_form.confirmPassword.$error" ng-show=" account_form.confirmPassword.$error.pattern && (!account_form.confirmPassword.$pristine || account_form.$submitted)"
+                        role="alert ">
+                        <span style="color:rgb(175, 65, 65) " ng-if="!updateButton" ng-message="pattern">password do not match</span>
+                    </div>
+                </div>
+
+                <div class="compare">
+                    <input id="compare" type="checkbox" ng-model="changePass" value="false" ng-change="newPassword(changePass)">
+                    <label for="compare">Add new password</label>
+                </div>
+                
+                <span>
+                  <button class="red_button button large" ng-click="updatePersonal(Personal)">
+                      UPDATE PERSONAL DETAILS
+                  </button>
+                </span>
+
+            </div>
+          </form>
+         </div>
+      </div>
+      <!-- <div class="row">
+        
+      </div> -->
+   </div>
+</section> 
+<!--checkout process-->
+
+
+<!--contacting start-->
+<section class="contacting contact_new">
+   <div class="container contact_container">
+      <div class="section_title">Contacting Ollie.</div>
+      <div class="row">         
+         <div class="col">
+            <div class="imagecol"><i class="zmdi zmdi-email zmdi-hc-fw"></i></div>
+            <div class="textcol">
+              <div class="title"><a href="mailto:support@madebyollie.com.au" target="_top">support@madebyollie.com.au</a></div>
+              <p>We’ll get back to you within 1 business day.</p>
+            </div>
+         </div>
+         <div class="col">
+            <div class="imagecol"><i class="zmdi zmdi-smartphone-iphone zmdi-hc-fw"></i></div>
+            <div class="textcol">
+              <div class="title"><a href="tel:1300 000 000">1300 000 000</a></div>
+              <p>Call 9am–5pm AEST, Monday–Friday.</p>
+            </div>
+         </div>
+         <div class="col">
+            <div class="imagecol"><i class="zmdi zmdi-comment-text-alt zmdi-hc-fw"></i></div>
+            <div class="textcol">
+              <div class="title"><a href="">Live chat</a></div>
+              <p>9am–5pm AEST, Monday–Friday.</p>
+            </div>
+         </div>         
+      </div>
+   </div>
+    
+</section>
+<!--contacting ends-->
+
+
+<div ng-if = "validImage" class="loading_div" ng-show='obj.loading'>
+    <center><img class="loading_img" src="./../images/Eclipse.gif"></center>
+</div>

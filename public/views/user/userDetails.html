@@ -1,0 +1,80 @@
+
+<div class="container" ng-init="userDetails()">
+    <div class="row list-group">
+        <div class="item col-lg-12">
+            <h4 class="group inner list-group-item-heading" align="center"><b>
+                    User Details </b></h4>
+            <table class="table table-striped">
+                <tr>
+                    <td width="50%">
+                        <h5 style="margin: 0;font-weight: 500;">E MAIL</h5></td>
+                    <td> {{userDetail.email}} </td>
+                </tr>
+                <tr>
+                    <td>
+                        <h5 style="margin: 0;font-weight: 500;"> USER TYPE</h5></td>
+                    <td> {{userDetail.userType}} </td>
+                </tr>
+                <tr>
+                    <td>
+                        <h5 style="margin: 0;font-weight: 500;"> NO. OF ORDERS</h5></td>
+                    <td> 0 </td>
+                </tr>
+            </table>
+        </div>
+        <div class="item col-lg-12">
+            <div class="col-lg-6">
+                <h4 class="group inner list-group-item-heading" align="center"><b>
+                        Shipping  Address </b></h4>
+                <table class="table table-striped">
+                    <tr>
+                        <td width="50%">
+                            <h5 style="margin: 0;font-weight: 500;">USER NAME</h5></td>
+                        <td> {{userDetail.shippingAddress.firstName}} &nbsp; {{userDetail.shippingAddress.lastName}} </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <h5 style="margin: 0;font-weight: 500;"> ADDRESS</h5></td>
+                        <td> {{userDetail.shippingAddress.address1}} </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <h5 style="margin: 0;font-weight: 500;"> CITY</h5></td>
+                        <td> {{userDetail.shippingAddress.city}} </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <h5 style="margin: 0;font-weight: 500;"> STATE</h5></td>
+                        <td> {{userDetail.shippingAddress.state}} </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="col-lg-6">
+                <h4 class="group inner list-group-item-heading"><b>Billing  Address </b></h4>
+                <table class="table table-striped">
+                    <tr>
+                        <td width="50%">
+                            <h5 style="margin: 0;font-weight: 500;">USER NAME</h5></td>
+                        <td> {{userDetail.billingAddress.firstName}} &nbsp; {{userDetail.billingAddress.lastName}} </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <h5 style="margin: 0;font-weight: 500;"> ADDRESS</h5></td>
+                        <td> {{userDetail.billingAddress.address1}} </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <h5 style="margin: 0;font-weight: 500;"> CITY</h5></td>
+                        <td> {{userDetail.billingAddress.city}} </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <h5 style="margin: 0;font-weight: 500;"> STATE</h5></td>
+                        <td> {{userDetail.billingAddress.state}} </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</div>

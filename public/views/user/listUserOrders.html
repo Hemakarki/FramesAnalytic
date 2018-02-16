@@ -1,0 +1,61 @@
+<div class="panel" ng-init="userorderspage()">
+    <div class="panel-body">
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-6" style="margin-left: 300px;">
+                    </div>
+                    <div>
+                        <span class="glyphicon glyphicon-search" style="color:purple"></span>
+                        <input ng-model="myobj.search" placeholder="Search for..." ng-change="userorderspage()" style="width: 140px;"/>
+                    </div>
+                </div>
+                <br>
+                <table id="example1" class="table table-bordered table-striped" ng-table="tableParams" show-filter="isFiltersVisible">
+                    <tr ng-repeat="user in $data track by $index">
+
+                      <td data-title="'Name'">
+                          {{user.userData.billingAddress.firstName}} {{user.userData.billingAddress.lastName}}</a>
+                      </td>
+
+                      <td data-title="'Email'" sortable="'email'" filter="{email:'text'}">
+                          <a data-toggle="tooltip" title="View Details"  ui-sref="admin.orderDetail({id:user._id})" style="color: green;">{{user.userData.email}}</a>
+                      </td>
+                      <td data-title="'Order Date'" sortable="'createdOn'" filter="{createdOn:'text'}">
+                          <!-- {{user.createdOn | date:'dd/MM/yyyy @ h:mma'}} -->
+                          {{user.createdOn | date:'dd/MM/yyyy'}}
+                      </td>
+                      <td data-title="'Total Price'" sortable="'totalPrice'" filter="{totalPrice:'text'}">
+                        {{user.totalPrice}}
+                      </td>
+
+                    </tr>
+                       <tr ng-show="!$data.length">
+                          <td class="text-center" colspan="11">
+                          <div class="alert alert-danger">
+                              No Orders Available
+                          </div>
+                          </td>
+                      </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal" id="delete" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-body">
+                <p>
+                    Are You Sure!!!!!! You want to Delete
+                </p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="goavailable()" data-toggle="modal">Yes</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">CANCEL</button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,1 @@
+{"options":{},"indexes":[{"v":1,"key":{"_id":1},"name":"_id_","ns":"framesNow.frames"},{"v":1,"unique":true,"key":{"frameName":1},"name":"frameName_1","ns":"framesNow.frames","background":true}]}

@@ -1,0 +1,43 @@
+
+
+<div class="panel" ng-init="listInspirational()">
+    <div class="panel-body">
+
+        <div id="page-content-wrapper">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-6" style="margin-left: 300px;">
+                    </div>
+
+
+                    <div class="input-group">
+
+                    <input type="text" class="form-control"  ng-model="search" placeholder="Search for..." ng-change="listInspirational(search)">
+                    <span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
+                  </div>
+                </div>
+                <br>
+                <table id="example1" class="table table-bordered table-striped" ng-table="tableParams" show-filter="isFiltersVisible">
+                    <tr ng-repeat="inspirationData in $data track by $index">
+                        <td data-title="'Name'" sortable="'name'">{{inspirationData.name}}</td>
+                        <td data-title="'Image'"><img class="imgSize" ng-src="{{inspirationData.image}}"></td>
+                     
+                        <td data-title="'Action'">
+                            <button ui-sref="admin.edit_inspirational({'id':inspirationData._id})" class="fa fa-pencil" aria-hidden="true" ></button>
+                            <button class="fa fa-trash" aria-hidden="true" ng-click="deleteInspirationalData(inspirationData)"></button>
+                        </td>
+                    </tr>
+
+                      <tr ng-show="!$data.length">
+                          <td class="text-center" colspan="11">
+                          <div class="alert alert-danger">
+                              No Inspiration Data Available
+                          </div>
+                          </td>
+                      </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+ 

@@ -1,0 +1,144 @@
+
+<!--checkout process-->
+<section class="checkout_process" ng-init = "getCartData()">
+   <div class="container" ng-init = "getETA()">
+      <div ng-if = "length != 0" class="main_title col-md-offset-1">Your cart has {{length}} item.</div>
+      <div class="row" ng-if = "length != 0"   ng-repeat = "data in cartData.products">
+         <div class="col-md-5 col-md-offset-1">
+             <div class="row" >
+                 <div class="col-md-8 col-xs-6">
+                    <div class="cart_listing" style="border-bottom: 1px solid #929288;">
+                       <div class="sub_title">{{data.frameData.frameName}}</div>
+                       <ul>
+                          <li>
+                             <label>Approx artwork size  {{data.artData.artSizeCatagory.artSize.width | number : 0}}cm x {{data.artData.artSizeCatagory.artSize.height | number : 0}}cm</label>
+                          </li>
+
+                          <li>
+                             <label>Approx frame size  {{data.artData.artSizeCatagory.artSize.width + 2.7 | number : 0}}cm x {{data.artData.artSizeCatagory.artSize.height + 2.7 | number : 0}}cm</label>
+                          </li>
+                       </ul>
+                    </div>
+                    <div class="action_button">
+                       <a class="btn" ui-sref = "user.framePreview({foo : data.frameData._id})">Edit</a>
+                       <a class="btn" ng-click ="deleteProductValue(data._id)">Remove</a>
+                    </div>
+                    
+                </div>
+                <div class="col-md-4 col-xs-6">
+                  
+                 <div class="thumbnail"  ng-repeat = "image in data.frameData.frameImages">
+                   <!-- <img ng-if = "image.isPrimary == true" src="{{image.imgPath}}" width="140" height="144"/> -->
+                     <preview-canvas-cart ng-if = "image.imageType == imageType" ng-model="matData"
+                     productimage = "{{data.productImage}}" frameimage = "{{image.imgPath}}"
+                     frameid= "{{data._id}}" artsize = "{{data.imageSizeCost.frameSize}}"
+                     matcolor = "{{data.matData.color}}" productw = "{{(data.artData.artSizeCatagory.artSize.width / 2.54) * 150}}"
+                     producth = "{{(data.artData.artSizeCatagory.artSize.height / 2.54) * 150}}" >
+                       <canvas ng-attr-id="{{data._id}}" width="140" height="144" />
+                    </preview-canvas-cart>
+
+                 </div>
+               </div>
+             </div>
+
+             <div class="cart_listing middle" ng-if="data.artType!='Digital' && data.artType!='Instagram'">
+                <div class="sub_title">Send us your artwork:</div>
+                <div class="select_wrapper">
+                    <select ng-options="val.type as val.type for val in packagingType" ng-model="data.mailinType" ng-change="updateMailinType(data._id,data.mailinType)">
+                        <option value="">SELECT MAIL-IN PACKAGING TYPE</option>
+                      </select>
+                </div>
+           </div>
+
+         </div>
+         <div class="col-md-5">
+                <div class="cart_listing">
+                   <ul  >
+                      <li>
+                         <!-- <label class="title">Medium frame</label> -->
+                         <label class="title">{{frameSizesArray[data.imageSizeCost.frameSize]}} Frame </label>
+                         <label ng-if = "data.matData.matPrice == 0" class="value">${{data.itemPrice}}</label>
+                         <label ng-if = "data.matData.matPrice != 0" class="value">${{data.itemPrice - data.matData.matPrice}}</label>
+                      </li>
+                      <li ng-if = "data.matData.matPrice != 0">
+                         <label class="title">Mat Cost</label>
+                         <label class="value">${{data.matData.matPrice}}</label>
+                      </li>
+                      <li>
+                         <label class="title">Quantity</label>
+                         <label class="value"><input type="number" placeholder = "{{data.quantity}}" ng-model = "itemQuantity[$index]" ng-change = "changeQuantity(itemQuantity[$index], data._id, $index)" min=1 max=99></label>
+                      </li>
+                      <li class="subtotal">
+                         <label class="title">Subtotal</label>
+                         <!-- <label class="value">${{(itemQuantity[$index] ? itemQuantity[$index] : 1) * (data.itemPrice + data.matData.matPrice)}}</label> -->
+                         <label class="value">${{(data.itemPrice * data.quantity)}}</label>
+                      </li>
+                      <!-- <li ng-if="data.artType!='Digital'&&data.artType!='Instagram'"> -->
+                    </ul>
+              </div>
+            </div>
+       </div>
+
+
+
+       <div class="row" ng-if = "length != 0">
+          <div class="col-md-5 col-md-offset-1">
+             <div class="cart_listing web_only">
+                 <div class="compare">
+                    <input id = "compare" type="checkbox"  value = "false" ng-model = "isGift" ng-change = "isGiftMessage(isGift)">
+                    <label for = "compare">Is this a gift?<small> Add a personal gift message for free.</small></label>
+                 </div>
+                 <textarea ng-if = "isGift" placeholder="Type your personalised gift message here." ng-model = "item.giftMessage"></textarea>
+             </div>
+          </div>
+          <div class="col-md-5">
+              <div class="cart_listing web_only">
+                  <div class="gift_codes">
+                      <input ng-if = "!cartData.isPromo" type="text" placeholder="Promo code" ng-model = "item.promoCode">
+                      <button ng-if = "!cartData.isPromo" class="grey_btn button" ng-click = "applyPromo(item.promoCode)">APPLY PROMO CODE</button>
+                      <label style="color:rgb(199, 55, 55);" ng-if = "cartData.isPromo" class="title">Promo Code Already Applied.</label>
+                      <label ng-if = "cartData.isPromo" class="value">- $ {{discount}}</label>
+                  </div>
+              </div>
+            
+            <div class="cart_listing mob_only">
+                <div class="compare">
+                    <input id = "compare" type="checkbox"  value = "false" ng-model = "isGift" ng-change = "isGiftMessage(isGift)">
+                    <label for = "compare">a gift?<small> Add a personal gift message for free.</small></label>
+                </div>
+                <textarea ng-if = "isGift" placeholder="Type your personalised gift message here." ng-model = "item.giftMessage"></textarea>
+            </div>
+
+            <div class="cart_listing">
+                <ul>
+                  <li>
+                      <label class="title">Delivery (standard)</label>
+                      <label class="value red_text bold">FREE</label>
+                  </li>
+                  <li>
+                      <label class="title">Estimated delivery date</label>
+                      <label class="value">{{estimatedDate | date :  "dd/MM/y"}}</label>
+                  </li>
+                </ul>
+            </div>
+          
+
+          <div class="cart_listing total_ammount">
+              <ul>
+                <li>
+                    <label class="title">Total</label>
+                    <label class="value">${{cartData.totalPrice}}</label>
+                </li>
+            </ul>
+          </div>
+          <div class="checkout_buttons">
+                <button class="red_button button large" ng-click = "updateCart(item,data)" ><i class="zmdi zmdi-lock zmdi-hc-fw"></i> CHECKOUT</button>
+                <button class="grey_btn button large" ui-sref = "user.framesType">FRAME SOMETHING ELSE</button>
+          </div>
+         </div>
+      </div>
+        <div ng-if = "length == 0" class="main_title col-md-offset-1">There are no items in your cart.</div>
+        <center ng-if = "length == 0"><button class="red_button button large" ui-sref = "user.framesType">START FRAMING</button></center>
+   </div>
+</section>
+<!--checkout process-->

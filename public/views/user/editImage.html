@@ -1,0 +1,172 @@
+<!--free shipping-->
+
+<section class="free_shipping">
+   FREE SHIPPING AUSTRALIA-WIDE
+</section>
+<!--free shipping-->
+
+<div ng-if = "!imgVis" ng-init = "showModal?show():instaImage()"></div>
+<!--image_uploading_steps-->
+<div class="image_uploading_steps" ng-init = "cropImage()">
+   <ul>
+      <li style="cursor: pointer;" ui-sref = "user.framesType">
+         <span class="cirle"></span>
+         <span class="text">1 Image</span>
+      </li>
+
+      <li ng-if="isDigital" ui-sref = "user.editImage({'myParam':{'artType':'Digital'}})" ui-sref-opts="{reload: true}" style="cursor: pointer;" class="active">
+         <span class="cirle"></span>
+         <span  class="text">2 Review </span>
+      </li>
+
+      <li ng-if="!isDigital" style="cursor: pointer;" class="active" ui-sref = "user.instagramPhoto">
+         <span class="cirle"></span>
+         <span  class="text" >2 Review </span>
+      </li>
+
+      <li>
+         <span class="cirle"></span>
+         <span class="text">3 Size</span>
+      </li>
+      <li>
+         <span class="cirle"></span>
+         <span class="text">4 Frame</span>
+      </li>
+      <li>
+         <span class="cirle"></span>
+         <span class="text">5 Finalise</span>
+      </li>
+   </ul>
+</div>
+<!--image_uploading_steps-->
+
+
+
+<!--product section-->
+<section class="faq_section start_framing_section framing_steps">
+ <div class="container">
+
+  <div class="row">
+     <div class="col-md-3 steps_info">
+        <div class="title">Review your image.</div>
+        <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat</p>
+     </div>
+     <div class="col-md-3 col-md-offset-1 steps_operation">
+
+         <div class="imagecol setWidth img-container" style="text-align: center;" >
+           <img alt="No Image" src="{{cropper.sourceImage}}" id="imageTest" />
+
+         </div><br>
+
+          <div ng-if="showProgressBar" class="progress">
+          <div class="progress-bar progress-bar-danger progress-bar-striped active" role="progressbar"
+          aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width:{{width}}%">
+            {{progressPercentage}}%
+          </div>
+          </div> 
+
+         <span class="setWidth" ng-if = "!validImage">We are unable to print images smaller than 150 DPI, please upload a higher quality image.</span>
+         <button ng-if = "validImage"  class="red_button button continue setWidth"  ng-click = "addDigitalImage(cropper.sourceImage)" ng-disabled="disableContinue">Continue</button>
+         <a ng-if = "!validImage" href="javascript:void(0)" class="red_button button continue setWidth" ng-click = "continueAgain(cropper.sourceImage)">Select Another Image</a>
+
+         <ul class="operations setWidth">
+             <li ng-click="rotate()" ng-class="(disableContinue==true)?'disabled':''">
+            <span><i class="zmdi zmdi-rotate-left zmdi-hc-fw"></i></span>
+              <span class="name">ROTATE</span>
+
+           </li>
+
+            <li ng-click="setShape('square')" ng-class="(disableContinue==true)?'disabled':''">
+               <span><i class="zmdi zmdi-fullscreen zmdi-hc-fw"></i></span>
+               <span class="name" id="sq">SQUARE</span>
+            </li>
+
+            <li ng-click="setShape('rectangle')" ng-class="(disableContinue==true)?'disabled':''">
+               <span><i class="zmdi zmdi-aspect-ratio-alt zmdi-hc-fw"></i></span>
+               <span class="name" >RATIO</span>
+            </li>
+
+            <li ng-click = "continueAgain(files)" ng-class="(disableContinue==true)?'disabled':''">
+               <span><i class="zmdi zmdi-image-o zmdi-hc-fw"></i></span>
+               <span class="name">NEW</span>
+            </li>
+         </ul>
+     </div>
+  </div>
+ </div>
+</section>
+<!--product section-->
+
+
+
+
+<!--product section-->
+
+
+
+<div class = "container">
+  <script type="text/ng-template" id="modal.html">
+        <div class="modal fade upload_image_popup">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <button type="button" class="close" ng-click="close('Cancel')" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <div class="modal-body">
+                        <p>Upload your image.</p>
+
+                        <img  ng-show="files&&!validImageType" src={{files}}  id="profile-img-tag" width="200px" />
+                        <span ng-hide="files&&!validImageType" class="dropzone" file-dropzone="[image/png, image/jpeg, image/gif]"
+                         file="files" file-name="imageFileName"><img  src="views/styles/images/upload_image.png" width="80" height="80" />
+                        </span>
+
+                        <span ng-hide = "files" ng-show="!validImageType">DRAG AND DROP YOUR IMAGE</span>
+
+                        <input type="file"  name="file" id="profile-img" file-input="files" ng-click="imgVis='true'" style="display:none" accept="image/*"/>
+                        <span class="setImage" ng-if="validImageType">Please select Valid Image</span>
+                        <span ng-if = "!files&&!validImageType"><button ng-model="files" class="browse_image" type="button" onclick="document.getElementById('profile-img').click()">BROWSE IMAGE</button></span>
+                        <span ng-if = "files&&validImageType"><button ng-model="files" class="browse_image" type="button" onclick="document.getElementById('profile-img').click()">BROWSE IMAGE</button></span>
+
+                        <div class="footer">
+                            <button ng-show = "files&&!validImageType" ng-show="imgVis" id="confirm" class="browse_image" type="button" data-dismiss="modal" ng-click="close(files)"> CONFIRM </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </script>
+</div>
+
+<!-- $timeout([fn], [delay], [invokeApply], [Pass]); -->
+
+<div ng-if = "validImage" class="loading_div" ng-show='obj.loading'>
+  <center><img class="loading_img" src="./../images/Eclipse.gif"></center>
+</div>
+
+<style type="text/css">
+canvas{
+  margin-top: 0px !important;
+  margin-left:0px !important;
+}
+.setWidth{
+   width:300px !important;
+}
+img {
+  max-width: 100%; /* This rule is very important, please do not ignore this! */
+}
+.setImage{
+  text-align: center;
+  color: red !important;
+
+
+}
+.disabled{
+   pointer-events:none; 
+   opacity:0.6; 
+}
+.progress{
+ width:115% !important;   
+}
+.cropper-container{
+    width:300px!important;
+    /* height:100%!important; */
+}
+</style>

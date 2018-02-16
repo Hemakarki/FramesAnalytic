@@ -1,0 +1,34 @@
+<div class="panel" ng-init="userorderdetail()">
+    <div class="panel-heading">Order Details</div>
+    <div class="panel-body">
+        <div ng-if="messages" role="alert" class="alert alert-danger">
+            <div>{{messages}}</div>
+        </div>
+        <div class="block">
+            <!-- <span ><h3 align="center">No images in gallery</h3></span> -->
+            <span>
+                <div class="allgallery" ng-repeat="users in userorders">
+                    <div ng-repeat="images in users.products">
+                        <div class="row" >
+                            <div class="col-md-4 col-sm-4">
+                                <img src="{{imgPath+images.productImage}}" alt="" style="height: 200px;width: 200px;">
+                            </div>
+                            <div class="col-md-8 col-sm-8">
+                                <h3> {{images.frameData.frameName}} </h3>
+                                <hr style="width: 200px;margin-left: 10px;">
+                                <h4>Approximate artwork size</h4>
+                                <span style="float: left;margin-left: 450px;margin-top: -29px;"> {{images.artData.artSizes[0].width | number : 2}} *  {{images.artData.artSizes[0].height | number : 2}} </span>
+
+                                <h4>Artwork Type</h4> <span style="float: left;margin-left: 450px;margin-top: -29px;"> {{images.artData.artType}} </span>
+                                <h4>Approximate frame size </h4> <span style="float: left;margin-left: 450px;margin-top: -29px;"> {{images.artData.artSizes[0].width + 2.75 | number : 2}} * {{images.artData.artSizes[0].height + 2.75 | number : 2}} </span>
+                                <h4>Mat Style</h4> <span style="float: left;margin-left: 450px;margin-top: -29px;"> {{images.matData.matColor}}</span>
+                                <h4>Item Price  </h4> <span style="float: left;margin-left: 450px;margin-top: -29px;">$ {{images.itemPrice}} </span>
+                            </div>
+                        </div>
+                        <hr>
+                    </div>
+                </div>
+            </span>
+        </div>
+    </div>
+</div>

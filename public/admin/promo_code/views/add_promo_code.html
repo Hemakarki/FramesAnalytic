@@ -1,0 +1,116 @@
+<ol class="breadcrumb">
+    <li>
+        <a ui-sref="admin.dashboard">Dashboard</a>
+    </li>
+    <li class="active">
+        <a ui-sref="admin.promo_code">Promo Code</a>
+    </li>
+</ol>
+<div class="container">
+    <div class="row">
+        <div class="col-md-10">
+            <div class="panel panel-login">
+                <div class="panel-heading">
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <form name="promoCodeForm" style="display: block;" class="form-horizontal">
+                                <div class="form-group row">
+                                    <div class="col-sm-2">
+                                        <label for="example-text-input" class="col-2 col-form-label">PromoCode :</label>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <input class="form-control" type="text" name="promoCode" ng-model='promo.promoCode' minlength="4" placeholder="Promo Code"
+                                            required>
+                                        <span style="color:red;" ng-show="promoCodeForm.promoCode.$error.required && promoCodeForm.promoCode.$touched">This field is mandatory </span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <div class="col-sm-2">
+                                        <label for="example-text-input" class="col-2 col-form-label">Description :</label>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <textarea class="form-control" type="text" name="description" ng-model='promo.description' placeholder="Description" required></textarea>
+                                        <span style="color:red;" ng-show="promoCodeForm.description.$error.required && promoCodeForm.description.$touched">This field is mandatory </span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <div class="col-sm-2">
+                                        <label for="example-text-input" class="col-2 col-form-label">Offer Limit :</label>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <select ng-options="tag.label as tag.label for tag in offerType" ng-model="promo.offerType" required>
+                                            <option value="">Select</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row" ng-if="promo.offerType=='Limited Offer'">
+                                    <div class="col-sm-2">
+                                        <label for="example-text-input" class="col-2 col-form-label">No Of Offers :</label>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <input class="form-control" type="text" name="number" ng-model='promo.offerCount' placeholder="User Count" required>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <div class="col-sm-2">
+                                        <label for="example-text-input" class="col-2 col-form-label">Discount :</label>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <input class="form-control" type="text" name="discount" ng-model='promo.discount' placeholder="Discount price" valid-number required>
+                                    </div>
+                                </div>
+
+                                <div class="form-group" ng-if="promo.offerType=='Date Range Offer'">
+                                    <label class="col-lg-3 col-md-3 col-sm-5">Start Date :</label>
+                                    <div class="col-lg-4 col-md-4 col-sm-5 input-group">
+                                        <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="promo.startDate" is-open="popup1.opened"
+                                            datepicker-options="dateOptions" close-text="Close" placeholder="Start Date" alt-input-formats="altInputFormats"
+                                            ng-click="open1()" minDate="dateOptions.minDate" readonly/>
+                                        <span class="input-group-btn">
+                                            <button type="button" class="btn btn-default" ng-click="open1()">
+                                                <i class="glyphicon glyphicon-calendar"></i>
+                                            </button>
+                                        </span>
+                                    </div>
+                                </div>
+
+
+                                <div class="form-group" ng-if="promo.offerType=='Date Range Offer'">
+                                    <label class="col-lg-3 col-md-3 col-sm-5">End Date :</label>
+                                    <div class="col-lg-4 col-md-4 col-sm-5 input-group">
+                                        <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="promo.endDate" is-open="popup2.opened"
+                                            datepicker-options="dateOptions" close-text="Close" placeholder="End Date" alt-input-formats="altInputFormats"
+                                            ng-click="open2()" minDate="dateOptions.minDate" readonly/>
+                                        <span class="input-group-btn">
+                                            <button type="button" class="btn btn-default" ng-click="open2()">
+                                                <i class="glyphicon glyphicon-calendar"></i>
+                                            </button>
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <button type="button" class="btn btn-primary" ng-click="addPromoCode(promo)" ng-disabled="promoCodeForm.$invalid">Submit</button>
+                                </div>
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="loading_div" ng-show='obj.loading'>
+    <center>
+        <img class="loading_img" src="./../images/Eclipse.gif">
+    </center>
+</div>

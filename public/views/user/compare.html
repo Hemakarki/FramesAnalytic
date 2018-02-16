@@ -1,0 +1,177 @@
+<!--product section-->
+<section class="faq_section start_framing_section framing_steps final" ng-init = "getProducts()">
+    <div ng-if = "items.length" class="container">
+        <div class="row">
+            <div class="col-md-2 col-sm-2 col-md-offset-1 pull-right thumbnails_col">
+                <ul class="thumbnails" ng-repeat="images in compareData.frameData.frameImages">
+                    <li ng-if = "!images.isPrimary">
+                        <!-- <img src="/images/frames/{{images.imageType}}/{{images.imgPath}}" width="70" height="70" alt="thumb" /> -->
+                        <img src="/images/frames/{{images.imageType}}/51009448_Alt01.jpg-1509096198422.jpeg" width="70" height="70" alt="thumb" />
+                    </li>
+                </ul>
+            </div>
+
+            <div class="col-md-4 col-sm-5 col-md-offset-1 pull-right">
+                <div class="compare_titles mobile_only">
+                    <ul>
+                        Compare your designs:
+                        <li class="active" ng-repeat="item in items">
+                            <a ng-click = "viewIndex($index)">{{$index + 1}}</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="product_slider">
+                    <preview-canvas productimage = "{{productImagedata}}"
+                    {{compareData.matData.color}}
+                    matcolor = "{{compareData.matData.color}}" artsize = {{artsSize.frameSize}}
+                    productw = "{{compareData.artData.artSizeCatagory.artSize.width}}" producth = "{{compareData.artData.artSizeCatagory.artSize.height}}">
+                    </preview-canvas>
+                </div>
+                <div class="slider_bottom">
+                    <div class="social_compare only">
+                        <ul>
+                            <li>
+                                <a href="javascript:void(0)">
+                                    <i class="zmdi zmdi-facebook zmdi-hc-fw"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="javascript:void(0)">
+                                    <i class="zmdi zmdi-twitter zmdi-hc-fw"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="javascript:void(0)">
+                                    <i class="zmdi zmdi-pinterest zmdi-hc-fw"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="javascript:void(0)">
+                                    <i class="zmdi zmdi-instagram zmdi-hc-fw"></i>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4 col-sm-5 steps_info final_step compare_products">
+                <div class="compare_titles">
+                    <ul>
+                        Compare your designs:
+                        <li class="active" ng-repeat="item in items">
+                            <a href = "" ng-click = "viewIndex($index)">{{$index + 1}}</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="frame_info">
+                    <div class="supertitle">
+                        <div class="maintitle">{{compareData.frameData.frameName}}</div>
+                        <ul class="pro_buttons">
+                            <!-- <li>
+                                <a href="">EDIT</a>
+                            </li> -->
+                            <li>
+                                <a href="" ng-click = "removeCompare()">REMOVE</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <p>{{compareData.frameData.frameOverview}}</p>
+                </div>
+                <div class="social_compare">
+                    <ul>
+                        <li>
+                            <a href="javascript:void(0)">
+                                <i class="zmdi zmdi-facebook zmdi-hc-fw"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0)">
+                                <i class="zmdi zmdi-twitter zmdi-hc-fw"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0)">
+                                <i class="zmdi zmdi-pinterest zmdi-hc-fw"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0)">
+                                <i class="zmdi zmdi-instagram zmdi-hc-fw"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="panel-group" id="faqAccordion">
+                    <div class="panel panel-default ">
+                        <div class="panel-heading accordion-toggle question-toggle collapsed" data-toggle="collapse" data-parent="#faqAccordion"
+                            data-target="#question0" aria-expanded="false">
+                            <h4 class="panel-title">
+                                <a class="ing">View specifications</a>
+                            </h4>
+                        </div>
+                        <div id="question0" class="panel-collapse collapse" aria-expanded="false" style="height: 0px;">
+                            <div class="panel-body">
+                                <div class="specification">
+                                    <div class="title">Specifications:</div>
+                                    <ul>
+                                        <li>
+                                            <label>Approximate artwork size</label>
+                                            <span>{{compareData.artData.artSizeCatagory.artSize.width | number : 0}} cm x {{compareData.artData.artSizeCatagory.artSize.height | number : 0}} cm</span>
+                                        </li>
+                                        <li>
+                                            <label>Approximate frame size</label>
+                                            <span>{{compareData.artData.artSizeCatagory.artSize.width + 2.75 | number : 0}} cm x {{compareData.artData.artSizeCatagory.artSize.height + 2.75 | number : 0}} cm</span>
+                                        </li>
+                                    </ul>
+                                    <ul>
+                                        <li>
+                                            <label>{{frameSizesArray[artsSize.frameSize]}} Frame</label>
+                                            <span>${{compareData.products.itemPrice}}</span>
+                                        <li ng-if = "compareData.matData.matPrice">
+                                            <label>Optional extras</label>
+                                            <span>${{compareData.matData.matPrice}}</span>
+                                        </li>
+                                    </ul>
+                                    <ul class="total">
+                                        <li>
+                                            <label>TOTAL</label>
+                                            <span>${{compareData.products.itemPrice + compareData.matData.matPrice}}</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="compare_buttons">
+                    <button class="red_button button large" ng-click = "addToCart()">ADD TO CART</button>
+                    <button class="grey_btn button large" ng-click = "resetCompare()" >NOT SURE, TRY ANOTHER FRAME</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div ng-if = "!items.length" class="container">      
+        <div class="row">
+            <div class="col-md-5 col-sm-5 steps_info final_step compare_products">
+                <div class="compare_titles empty">              
+                    <ul>You’ve removed all your designs to compare.</ul>
+                </div> 
+                <div class="compare_buttons">               
+                    <button class="grey_btn button large" ui-sref = "user.frames">GO BACK TO FRAME CHOICES</button>
+                    <button class="dr_green_button button large">STILL UNSURE? LET OLLIE HELP</button>
+                </div>
+            
+            </div> 
+        </div>
+    </div>
+</section>
+<!--product section-->
+
+
+<div ng-if="validImage" class="loading_div" ng-show='obj.loading'>
+    <center>
+        <img class="loading_img" src="./../images/Eclipse.gif">
+    </center>
+</div>

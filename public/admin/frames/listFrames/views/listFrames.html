@@ -1,0 +1,56 @@
+<ol class="breadcrumb">
+    <li><a ui-sref="admin.dashboard">Dashboard</a></li>
+    <li class="active"><a ui-sref="admin.listFrames">Frames</a></li>
+</ol>
+
+<br/>
+
+<div ng-init = "frameColor()" class="col-sm-10">
+  <span ng-repeat = "color in colors">
+    <button type = "button" class = "btn btn-info btn-sm" ng-click="getData('{{color.frameColor}}')">{{color.frameColor}}</button>
+  </span>
+
+  <button type = "button" class = "btn btn-default btn-sm" ng-click="getData()">All</button>
+</div>
+<div class="col-md-2">
+    <button class="btn btn-primary pull-right" ng-click="exportProductCSV()"><i class="fa fa-floppy-o" aria-hidden="true"></i> Exports</button>
+</div>
+<br/><br/><br/>
+
+
+
+<div class="col-sm-12 col-md-12 main" ng-init =  "getData()">
+    <!-- <div class="item  col-xs-4 col-lg-4" ng-repeat="frames in frameList"> -->
+  <div class="item  col-xs-4 col-lg-4" dir-paginate="frames in frameList | itemsPerPage:pagination.perPage" total-items="pagination.total" item="item" current-page="pagination.currentPage">
+    <div ng-repeat = "images in frames.frameImages">
+        <div class="thumbnail" ng-if = "images.imageType == 'SQUAR'">
+            <a ui-sref="admin.detailFrames({foo : frames._id})">
+                <img style="width: 300px;height:300px;" class="group list-group-image" src="/images/frames/SQUAR/{{images.imgPath}}" alt="No Image" />
+            </a>
+            <div class="caption">
+                <h4 class="group inner list-group-item-heading" style="color: #C5452A;"><b>{{frames.frameName}}</b></h4>
+                <p class="group inner list-group-item-text" style="color: #CA6751;">{{frames.frameDescription}}</p>
+                <hr/>
+                <div class="row">
+
+                    <div class="col-xs-12">
+                        <button type="button" class="btn btn-warning btn-sm" ui-sref="admin.editFrame({foo : frames._id})">EDIT</button>
+                        <button type="button" class="btn btn-danger btn-sm" ng-click="deleteFrame(frames)">DELETE</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+      </div>
+    </div>
+</div>
+
+<div>
+  <dir-pagination-controls direction-links="true" on-page-change="pageChanged(newPageNumber)"></dir-pagination-controls>
+</div>
+
+
+
+
+<li ng-show="frameList.length==0">
+  <p><span style="color: red; font-weight: bold;">No ContributorframeLists....</span></p>
+</li>
