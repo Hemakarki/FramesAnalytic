@@ -31,6 +31,21 @@ var transporter = nodemailer.createTransport(constant.nodemailer);
 
 
 
+/*
+***********************************************************
+ Function  :  Function to fetch instagram media data 
+ Dated     :  19-feb-2018
+***********************************************************
+*/
+
+// Get the most recent media published by the owner of the access_token.
+instagram.get('users/self/media/recent').then((data) => {
+  console.log(data);
+});
+
+
+
+
 
     
 /*

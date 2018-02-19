@@ -196,6 +196,7 @@ module.exports.register = function(req, res) {
             outputJSON.message = "Successfully registered user.";
             outputJSON.sections = sections;
             outputJSON.userData = userData;
+            //  session to make user logged in after register
             res.status(200).send(outputJSON);
           }
 
