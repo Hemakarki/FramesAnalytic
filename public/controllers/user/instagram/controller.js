@@ -1,4 +1,4 @@
-framebridge.controller('instaController', function($scope, $state, $http, $rootScope) {
+framebridge.controller('instagramController', function($scope, $state, $http, $rootScope, instagramService) {
   $scope.instaImages = [];
   $scope.visibility1 = true;
   $scope.visibility2 = true;
@@ -23,20 +23,17 @@ framebridge.controller('instaController', function($scope, $state, $http, $rootS
     });
   }
 
+  $scope.getToken = function(){
+    instagramService.getToken().then(function success(response) {
+      console.log(response.data,"here");
+    });
+  };
+
   $scope.imageClicked = function(index) {
     var imageData = $scope.instaImages[index];
     $state.go('user.editImage', {
       myParam: imageData
     });
   }
-
-  $scope.isAuthenticated = function() {
-    console.log("here")
-    // check if logged in
-  };
-
-  $scope.linkInstagram = function() {
-    // connect email account with instagram
-  };
 
 });

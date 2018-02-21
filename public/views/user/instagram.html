@@ -2,6 +2,8 @@
    FREE SHIPPING AUSTRALIA-WIDE
 </section>
 
+<div ng-init = "getToken()"></div>
+
 <!--image_uploading_steps-->
 <div class="image_uploading_steps">
    <ul>
@@ -32,7 +34,8 @@
 
 <section class="faq_section start_framing_section framing_steps">
 <div class = "container">
-  <div class="col-sm-12 col-md-12 main" ng-init = "userMedia()">
+  <!-- <div class="col-sm-12 col-md-12 main" ng-init = "userMedia()"> -->
+    <div class="col-sm-12 col-md-12 main">
       <!-- <div class="item  col-xs-4 col-lg-4" ng-repeat="frames in frameList"> -->
       <div ng-repeat = "image in instaImages">
         <div class="item col-xs-4 col-lg-4">

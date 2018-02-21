@@ -10,6 +10,7 @@
 angular.module("Authentication", []);
 
 
+
 var framebridge = angular.module("framebridge", [
   // 'uiCropper',
   'ngAnimate',
@@ -37,8 +38,9 @@ var framebridge = angular.module("framebridge", [
   'angularUtils.directives.dirPagination',
   'Authentication',
   'toastr',
-  'slickCarousel']
-)
+  'slickCarousel',
+
+])
 
  .filter('trusted', function($sce){
         return function(html){
@@ -463,7 +465,7 @@ framebridge.config(['$stateProvider', '$urlRouterProvider', '$httpProvider', '$l
       .state('user.instagramPhoto', {
         url: '/instagram',
         templateUrl: 'views/user/instagram.html',
-        controller: 'instaController',
+        controller: 'instagramController',
         data: {
           title: '',
           folded: false
@@ -474,7 +476,8 @@ framebridge.config(['$stateProvider', '$urlRouterProvider', '$httpProvider', '$l
             $ocLazyLoad.load({
               name: "framebridge",
               files: [
-                '/controllers/user/instagram/controller.js'
+                '/controllers/user/instagram/controller.js',
+                '/controllers/user/instagram/service.js'
               ]
             }).then(function() {
               deferred.resolve();
@@ -483,12 +486,6 @@ framebridge.config(['$stateProvider', '$urlRouterProvider', '$httpProvider', '$l
           }]
         }
       })
-
-      // .state('user.instagramHome', {
-      //     url: "/access_token={access_token}",
-      //     templateUrl: 'views/user/instaOAuth.html',
-      //     controller: 'OAuthLoginController'
-      // })
 
 
 

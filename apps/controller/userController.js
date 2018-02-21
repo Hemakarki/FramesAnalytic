@@ -22,13 +22,11 @@ var randDig = require("random-key");
 var nodemailer = require('nodemailer');
 var LocalStorage = require('node-localstorage').LocalStorage;
 var localStorage = new LocalStorage('./scratch');
-
-
-
+var InstagramStrategy = require('passport-instagram').Strategy;
+var passport = require('passport');
 
 var discountedPrice = constant.Discount;
 var transporter = nodemailer.createTransport(constant.nodemailer);
-
 
 
 /*
@@ -38,14 +36,14 @@ var transporter = nodemailer.createTransport(constant.nodemailer);
 ***********************************************************
 */
 
-// Get the most recent media published by the owner of the access_token.
-instagram.get('users/self/media/recent').then((data) => {
-  console.log(data);
-});
-
-
-
-
+passport.use(new InstagramStrategy({
+    clientID: "5a22661779d746799cc102e6d9b133f6",
+    clientSecret: "c1c285d6ef524d2fa066d4f7181bd6c6",
+    callbackURL: "http://localhost:4099/auth/instagram/callback" 
+  },function(accessToken, refreshToken, profile, done) {
+    console.log("done ", accessToken, profile );
+  })
+);
 
     
 /*

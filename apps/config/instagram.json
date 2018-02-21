@@ -1,8 +1,7 @@
 { 
     "instagram" : {
         "clientId": "5a22661779d746799cc102e6d9b133f6",
-        "clientSecret": "c1c285d6ef524d2fa066d4f7181bd6c6",
-        "accessToken": "6735097469.8eba402.43c87438791a4dbcb1d3cfdd5b392bab"
+        "clientSecret": "c1c285d6ef524d2fa066d4f7181bd6c6"
         },
     "redirectUri" : "http://localhost:3000/auth/instagram/callback"
 }   
